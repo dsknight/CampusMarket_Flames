@@ -1,5 +1,7 @@
 package org.market.controlmysql;
 
+import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,7 +10,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import org.market.mysql.ConnectMysql;
+import org.market.search.Segmentation;
 import org.market.types.GoodsType;
+
 
 public class GoodsInfo {
 	
@@ -32,6 +36,7 @@ public class GoodsInfo {
 				GoodsType temp = new GoodsType();
 				temp.setGNO(rs.getInt(i++));
 				temp.setName(rs.getString(i++));
+				temp.setLexemeName(rs.getString(i++));
 				temp.setOwner(rs.getInt(i++));
 				temp.setPrice(rs.getDouble(i++));
 				temp.setImage(rs.getString(i++));
@@ -188,5 +193,42 @@ public class GoodsInfo {
 			e.printStackTrace();
 		}
 		return needs;
+	}
+	
+	public String searchGoods(String key) throws IOException{
+		//首先对关键字分词
+		String modifiedKey = Segmentation.IKAnalyze(key);
+		
+		//查询
+		String result = "";
+		int numOfResult = 0;
+		String sql = "SELECT GNO,GName FROM tb_goods WHERE MATCH(GLexeme) AGAINST(? WITH QUERY EXPANSION);";
+		conn = ConnectMysql.connect();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try{
+			conn.setAutoCommit(false);
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, modifiedKey);
+			rs = stmt.executeQuery();
+			
+			while(rs.next()){
+				numOfResult++;
+				result += "*" + rs.getInt(1) + " " + rs.getString(2);
+			}
+			conn.setAutoCommit(true);
+			stmt.close();
+			rs.close();
+			conn.close();
+		}catch(SQLException e){
+			try {
+				conn.rollback();
+				System.out.println("ClientInfo.login roll back");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} 
+		return result;
 	}
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.market.controlmysql.GoodsInfo;
 import org.market.search.MarketSearch;
 
 public class AndroidSearchServlet extends HttpServlet {
@@ -66,7 +67,8 @@ public class AndroidSearchServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		String searchKey = new String(request.getParameter("query").getBytes("8859_1"),"utf-8");
-		String searchResult = MarketSearch.search(searchKey);
+		GoodsInfo goodsInfo = new GoodsInfo();
+		String searchResult =  goodsInfo.searchGoods(searchKey);
 		System.out.println(searchResult);
 		out.print(searchResult);
 	}

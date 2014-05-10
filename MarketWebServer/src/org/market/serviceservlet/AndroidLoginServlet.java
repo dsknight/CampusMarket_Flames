@@ -88,7 +88,7 @@ public class AndroidLoginServlet extends HttpServlet {
 			System.out.println("supply:"+supply+"\nrequest:"+reqst+"\nStart sending message...");
 			out.print(build(respClient,supply,reqst));
 			//返回推荐信息
-			out.print(MarketSearch.suggest(gInfo.needGoods(usrNO)));
+			out.print(gInfo.searchGoods((gInfo.needGoods(usrNO))));
 			System.out.println("Succeed!!!!!!");
 		}else{
 			System.out.println("Android Search: no such guy");

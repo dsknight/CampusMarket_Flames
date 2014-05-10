@@ -3,6 +3,7 @@ package org.market.types;
 public class GoodsType {
 	private int GNO;
 	private String name;
+	private String lexemeName;//分词之后的结果
 	private int owner;
 	private double price;
 	private String image;
@@ -10,6 +11,8 @@ public class GoodsType {
 	private int subClass;
 	private String introduction;
 	private String date;
+	private int label;
+	private int property;
 	
 	public GoodsType(){
 		super();
@@ -79,4 +82,23 @@ public class GoodsType {
 	public void setDate(String date) {
 		this.date = date;
 	}
+	public int getLabel(){
+		return label;
+	}
+	public int getProperty(){
+		return property;
+	}
+	public String getLexemeName(){
+		return lexemeName;
+	}
+	public void setLabel(int label){
+		this.label = label;
+	}
+	public void setProperty(int property){
+		this.property = property;
+	}
+	public void setLexemeName(String lexemeName){
+		this.lexemeName = lexemeName;
+	}
+	
 }
