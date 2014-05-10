@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#eeeeee" >
+
+	<LinearLayout
+	    android:id="@+id/suggestContent"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="5dp"
+	    android:layout_marginTop="5dp"
+	    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="20sp"
+        android:textColor="#333333"
+        android:layout_marginTop="5dp"
+	    android:layout_marginLeft="5dp"
+        android:text="您可能需要" />
+    <TextView
+        android:id="@+id/suggest1"
+        android:layout_width="wrap_content"
+        android:layout_height="20sp"
+        android:layout_marginTop="5dp"
+	    android:layout_marginLeft="5dp"
+        android:textColor="#333333" />
+    <TextView
+        android:id="@+id/suggest2"
+        android:layout_width="wrap_content"
+        android:layout_height="20sp"
+        android:layout_marginTop="5dp"
+	    android:layout_marginLeft="5dp"
+        android:textColor="#333333" />
+    <TextView
+        android:id="@+id/suggest3"
+        android:layout_width="wrap_content"
+        android:layout_height="20sp"
+        android:layout_marginTop="5dp"
+	    android:layout_marginLeft="5dp"
+        android:textColor="#333333" />
+    
+	
+	
+   <SearchView android:id="@+id/searchView"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"/>
+   <!-- 为SearchView定义自动完成的ListView -->
+   <ListView android:id="@+id/lvForSearch"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:textColor="#333333"
+      />
+   </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#ff000000</color>
+    <color name="navpage">#ffe1e0de</color>
+    <color name="deep_blue">#0096dc</color>
+    <color name="deep_grey">#a1a1a1</color>
+    <color name="tray_background">#121515</color>
+    <color name="plugin_readerapp_header_color_news">#ff91cd1a</color>
+    <color name="gray">#ADADAD</color>
+    <color name="orange">#ffe3432c</color>
+    <color name="text_panel_pressed">#FF5809</color>
+    <color name="feed_subtext">#ffaea9a1</color>
+    <color name="med_gray">#ff9999</color>
+    <color name="topbar_text_color">#ffffff</color>
+</resources>

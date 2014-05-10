@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#eeeeee" >
+    <LinearLayout
+        android:id="@+id/me_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:background="@drawable/top_background"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_navigation_me"
+            android:textSize="9pt"
+            android:textColor="#ffffff"/>
+    </LinearLayout>
+	<LinearLayout 
+	    android:id="@+id/me_top_background"
+	    android:layout_below="@id/me_topbar"
+	    android:layout_width="fill_parent"
+	    android:layout_height="150dip"
+	    android:orientation="horizontal"
+	    android:background="@drawable/personal_background"
+	    android:gravity="center" />
+	<LinearLayout
+	    android:id="@+id/me_usr_info"
+	    android:layout_below="@id/me_top_background"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="8.0dip"
+        android:background="@drawable/shape_bg"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+        <LinearLayout
+            android:id="@+id/me_usr"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/comm_shakebg_selected"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:minHeight="40.0dip"
+            android:orientation="horizontal"
+            android:padding="8.0dip">
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10.0dip"
+                android:layout_weight="1.0"
+                android:text="@string/register_label2"
+                android:textColor="@color/black" 
+                android:textSize="@dimen/basic_text_size"/>
+            <ImageView 
+                android:layout_width="12.0dip"
+                android:layout_height="12.0dip"
+                android:layout_marginRight="10.0dip"
+                android:src="@drawable/mm_submenu" />
+        </LinearLayout>
+     </LinearLayout>
+     <LinearLayout
+	    android:id="@+id/me_focus"
+	    android:layout_below="@id/me_usr_info"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="8.0dip"
+        android:background="@drawable/shape_bg"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+        <LinearLayout
+            android:id="@+id/me_shopping"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/comm_shakebg_selected"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:minHeight="40.0dip"
+            android:orientation="horizontal"
+            android:padding="8.0dip"
+            >
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10.0dip"
+                android:layout_weight="1.0"
+                android:text="@string/shopping_car"
+                android:textColor="@color/black" 
+                android:textSize="@dimen/basic_text_size"/>
+            <ImageView 
+                android:layout_width="12.0dip"
+                android:layout_height="12.0dip"
+                android:layout_marginRight="10.0dip"
+                android:src="@drawable/mm_submenu" />
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/register_line2"          
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="@drawable/login_line"
+            android:contentDescription="@string/image_descrption" />
+        <LinearLayout
+            android:id="@+id/me_storage"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/comm_shakebg_selected"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:minHeight="40.0dip"
+            android:orientation="horizontal"
+            android:padding="8.0dip"
+            >
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10.0dip"
+                android:layout_weight="1.0"
+                android:text="@string/storage"
+                android:textColor="@color/black" 
+                android:textSize="@dimen/basic_text_size"/>
+            <ImageView 
+                android:layout_width="12.0dip"
+                android:layout_height="12.0dip"
+                android:layout_marginRight="10.0dip"
+                android:src="@drawable/mm_submenu" />
+        </LinearLayout>
+     </LinearLayout>
+</RelativeLayout>
