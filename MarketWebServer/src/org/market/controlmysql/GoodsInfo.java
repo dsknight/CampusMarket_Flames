@@ -177,8 +177,11 @@ public class GoodsInfo {
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, cno);
 			rs = stmt.executeQuery();
-			rs.next();
-			needs = rs.getString(1);
+			if(rs.next() == true){
+				needs = rs.getString(1);
+			}else{
+				needs = null;
+			}
 			conn.setAutoCommit(true);
 			stmt.close();
 			rs.close();
@@ -196,6 +199,9 @@ public class GoodsInfo {
 	}
 	
 	public String searchGoods(String key) throws IOException{
+		if(key == null)
+			return "*no1*no2*no3";
+		
 		//首先对关键字分词
 		String modifiedKey = Segmentation.IKAnalyze(key);
 		

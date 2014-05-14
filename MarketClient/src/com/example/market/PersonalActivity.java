@@ -32,7 +32,8 @@ public class PersonalActivity  extends Activity{
 		shopping_info.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getApplicationContext(),"π∫ŒÔ–≈œ¢",Toast.LENGTH_SHORT).show();
+				Intent intent=new Intent(PersonalActivity.this,AlterUsrNeedActivity.class);
+				startActivity(intent);
 			}
 		});
 		storage_info.setOnClickListener(new OnClickListener(){

@@ -1,12 +1,15 @@
 package com.example.market;
 
+
 import com.market.util.HttpUtil;
+import com.market.types.*;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,12 +25,23 @@ public class SignupActivity extends Activity{
 	private EditText stu_no;
 	private EditText phone;
 	private RadioButton male,female;
-	private String sex;
+	//private String sex;
+	private String url;
+	private String result;
 	private Button ok,cancel;
+	private int if_sign;
+	
+	private String usern;
+	private String passw;
+	private String stuno;
+	private int sex_user;
+	private String email;
+	private String phonenum;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.register);
+		setContentView(R.layout.a_register);
 		System.out.println("register--- onCreate");
 		un=(EditText)findViewById(R.id.input_UN);
 		System.out.println("register--- usr");
@@ -53,18 +67,29 @@ public class SignupActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				/*if(validate())
-				{
-					if(signin())
-					{
-						Intent intent_signin=new Intent(SignupActivity.this,signin.class);
+				if(validate()){
+					signin();
+					try {
+						Thread.sleep(3000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(if_sign == 0){
+						System.out.println("if_sign == 0");
+						showDialog("网络异常，请稍后再试");
+					}
+					if(if_sign == 1){
+						System.out.println("if_sign == 1");
+						Intent intent_signin=new Intent(SignupActivity.this,AllGoodsActivity.class);
 						startActivity(intent_signin);
+						if_sign = 0;
+					}else if(if_sign == 2){
+						System.out.println("if_sign == 2");
+						showDialog("用户名已经被使用了");
+						if_sign = 0;
 					}
-					else
-					{
-						showDialog("输入错误，请重新输入！");
-					}
-				}*/
+				}
 			}
 		});
 		cancel.setOnClickListener(new OnClickListener(){
@@ -75,13 +100,11 @@ public class SignupActivity extends Activity{
 			}
 		});
 	}
-	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		 //Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
 	private void showDialog(String msg)
 	{
 		AlertDialog.Builder builder=new AlertDialog.Builder(this);
@@ -94,77 +117,104 @@ public class SignupActivity extends Activity{
 		alert.show();
 	}
 	
-	private String query(String usern,String passw,String stuno,String sex_user,String email,String phonenum)
+	private void query(ClientType user)
 	{
-		String queryString="username="+usern+"&password="+passw+"&stuno="+stuno+"&sex="+sex_user+"&email="+email+"&phone="+phonenum;
-		String url=HttpUtil.BASE_URL+"page/AndroidSignupServlet?"+queryString;
+		usern = user.getUsername();
+		passw = user.getPassward();
+		stuno = user.getStuNo();
+		sex_user = user.getSex();
+		email = user.getMail();
+		phonenum = user.getPhone();
+
+		String queryString="username="+usern+"&password="+passw+
+			"&stuno="+stuno+"&sex="+sex_user+"&email="+email+"&phone="+phonenum;
+		url = HttpUtil.BASE_URL+"page/AndroidSignupServlet?"+queryString;
 		System.out.println(url);
-		return HttpUtil.queryStringForPost(url);
-		//page/AndroidLoginServlet?
+		
+		Runnable runnable = new Runnable(){
+			@Override
+			public void run(){
+				System.out.println("Android starts to send Login request\n");
+				result = HttpUtil.queryStringForPost(url);
+				//System.out.println("!!!!!!!"+result);
+				if(result == null){
+					System.out.println("set if_sign to 0");
+					if_sign = 0;
+				}
+				else if(result.equals("sorry")){
+					System.out.println("set if_sign to 2");
+					if_sign = 2;
+				}
+				else{
+					//TODO save User Information to Local [static] Configure file
+					System.out.println("set if_sign to 1");
+					if_sign = 1;
+				}
+			}
+		};
+		
+		Thread thread_getgood = new Thread(runnable);
+		thread_getgood.setPriority(1);
+		thread_getgood.start();
 	}
 	
 	
 	private boolean validate()
 	{
-		String un_input=un.getText().toString();
-		System.out.println(un_input);
-		if(un_input.equals(""))
-		{
-			showDialog("用户名称是必填项");
+		String ip_un = un.getText().toString();
+		String ip_pwd = pw.getText().toString();
+		String ip_pwdConfirm = confirm_pw.getText().toString();
+		String ip_stuNO = stu_no.getText().toString();
+		String ip_mail = mail.getText().toString();
+		String ip_phone = phone.getText().toString();
+		if(ip_un.equals("") || ip_pwd.equals("") || ip_pwdConfirm.equals("") || ip_stuNO.equals("") ||
+				ip_mail.equals("") || ip_phone.equals("")){
+			showDialog("请将信息补充完整");
 			return false;
 		}
-		String pwd=pw.getText().toString();
-		if(pwd.equals(""))
-		{
-			showDialog("用户密码是必填项");
+		if(!ip_pwd.equals(ip_pwdConfirm)){
+			showDialog("两次输入密码不一致");
 			return false;
 		}
-		String pwd_confirm=confirm_pw.getText().toString();
-		if(pwd_confirm.equals(""))
-		{
-			showDialog("确认是必填项");
+		if((!male.isChecked()) && (!female.isChecked())){
+			showDialog("请选择您的性别");
 			return false;
 		}
-		String stuNO=stu_no.getText().toString();
-		if(stuNO.equals(""))
-		{
-			showDialog("学号是必填项");
+		if(!FormatVerification.verify123ABC(ip_un)){
+			showDialog("用户名只能由数字和字母组成");
+			return false;
+		}
+		if(!FormatVerification.verifyStuNO(ip_stuNO)){
+			showDialog("学号格式不正确");
+			return false;
+		}
+		if(!FormatVerification.verifyMail(ip_mail)){
+			showDialog("请输入正确的邮箱地址");
+			return false;
+		}
+		if(!FormatVerification.verifyPhone(ip_phone)){
+			showDialog("请输入正确的手机号");
 			return false;
 		}
 		return true;
 	}
-	
-	private boolean signin()
+
+	private void signin()
 	{
-		String un_input=un.getText().toString();
-		String pwd=pw.getText().toString();
-		if(male.isChecked())
-		{
-			sex="1";
+		String ip_un = un.getText().toString();
+		String ip_pwd = pw.getText().toString();
+		String ip_stuNO = stu_no.getText().toString();
+		String ip_mail = mail.getText().toString();
+		String ip_phone = phone.getText().toString();
+		int gender = 0;
+		if(male.isChecked()){
+			gender = 1;
 		}
-		if(female.isChecked())
-		{
-			sex="0";
+		else if(female.isChecked()){
+			gender = 0;
 		}
-		String result=query(un_input,pwd,stu_no.getText().toString(),sex,mail.getText().toString(),phone.getText().toString());
-//		System.out.println(un);
-//		System.out.println(pwd);
-//		System.out.println(result);
-		if(result==null||result.equals("notFound"))
-		{
-			return false;
-		}
-		else
-		{
-			if(result.equals("success"))
-				return true;
-			//saveUserMsg(result);
-			else{
-				showDialog(result);
-			}
-			System.out.println("++++++++++++++++"+result+"_______________________");
-			return false;
-		}
-	}*/
+		ClientType newUser = new ClientType(ip_un,ip_pwd,ip_mail,ip_stuNO,ip_phone,gender);
+		query(newUser);
+	}
 	
 }

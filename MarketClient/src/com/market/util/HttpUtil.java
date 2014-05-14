@@ -9,12 +9,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 
 public class HttpUtil {
 	//声明Base URL变量
-	public static final String BASE_URL="http://10.0.2.2:8080/Market/";
+	public static final String BASE_URL="http://192.168.2.104:8080/Market/";
 	//public static final String BASE_URL1="http://169.254.50.166:8080/Market/";
 	public static HttpGet getHttpGet(String url)
 	{
@@ -25,9 +23,8 @@ public class HttpUtil {
 	public static HttpPost getHttpPost(String url)
 	{
 		//实例化HttpPost
-		System.out.println("------");
+		System.out.println("realize URL to a HttpPost");
 		HttpPost request=new HttpPost(url);
-		System.out.println("&&&&&&&&");
 		return request;
 	}
 	//通过HttpGet获得HttpResponse对象
@@ -63,12 +60,12 @@ public class HttpUtil {
 		}catch(ClientProtocolException e)
 		{
 			e.printStackTrace();
-			result="网络异常1111111111111111111111！";
+			result = null;
 			return result;
 		}catch(IOException e)
 		{
 			e.printStackTrace();
-			result="网络异常22222222222222222222222！";
+			result = null;
 			return result;
 		}
 		return null;

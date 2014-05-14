@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#eeeeee" >
+    <RelativeLayout
+        android:id="@+id/my_goods_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/top_background" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="我的商品" 
+            android:textSize="@dimen/topbar_text"
+            android:textColor="@color/topbar_text_color"/>
+    </RelativeLayout> 
+    <ListView
+        android:id="@+id/myGoodsList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/my_goods_topbar"
+        android:layout_marginTop="15.0dip"
+        android:divider="@color/deep_grey"
+        android:dividerHeight="1dip" >
+    </ListView>
+    
+</RelativeLayout>

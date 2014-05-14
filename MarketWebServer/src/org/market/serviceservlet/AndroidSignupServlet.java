@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.market.controlmysql.ClientInfo;
-import org.market.tools.FormatVerification;
+
 import org.market.types.ClientType;
 
 public class AndroidSignupServlet extends HttpServlet {
@@ -76,32 +76,17 @@ public class AndroidSignupServlet extends HttpServlet {
 	    String date = format1.format(new Date());
 	    System.out.println("username:"+usr+"\npwd:"+pwd+"\nstuNO:"+stuNO+"\nsex:"+sex
 	    		+"\nemail:"+email+"\nphone:"+phone+"\ndate:"+date);
-		if(!FormatVerification.verify123ABC(usr)){
-			System.out.println("username_error");
-			out.print("username_error");
-		}else if(!FormatVerification.verify123ABC(pwd)){
-			System.out.println("password_error");
-			out.print("password_error");
-		}else if(!FormatVerification.verifyStuNO(stuNO)){
-			System.out.println("student_number_error");
-			out.print("student_number_error");
-		}else if(!FormatVerification.verifyMail(email)){
-			System.out.println("email_error");
-			out.print("email_error");
-		}else if(!FormatVerification.verifyPhone(phone)){
-			System.out.println("phone_error");
-			out.print("phone_error");
+		
+		System.out.print("start registering...");
+		ClientInfo androidRegister = new ClientInfo();
+		ClientType androidCustomer = new ClientType(usr,pwd,sex,stuNO,phone,email,date);
+		if(androidRegister.addClient(androidCustomer)){
+			System.out.println("Register Successful.Congratulations!!");
+			out.print("success");
+			//out.print("*no1*no2*no3*");
 		}else{
-			System.out.print("Android request is legal,start registering...");
-			ClientInfo androidRegister = new ClientInfo();
-			ClientType androidCustomer = new ClientType(usr,pwd,sex,stuNO,phone,email,date);
-			if(androidRegister.addClient(androidCustomer)){
-				System.out.println("Register Successful.Congratulations!!");
-				out.print("success");
-			}else{
-				System.out.println("Register failed.Sorry...");
-				out.print("sorry");
-			}
+			System.out.println("Register failed.Sorry...");
+			out.print("sorry");
 		}	
 	}
 

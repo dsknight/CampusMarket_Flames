@@ -1,40 +1,37 @@
 package com.example.market;
-import java.net.URLEncoder;
 
-import com.market.util.HttpUtil;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Adapter;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.market.util.HttpUtil;
+
+@SuppressLint("HandlerLeak")
 public class HomeActivity  extends Activity  {
 
 	private SearchView sv;
     private ListView lv;
+    private View home_suggest1;
+    private View home_suggest2;
+    private View home_suggest3;
     private String url,msg;
     private String[] mStrings = new String[1];
+    private Handler handler;
     
-    private Handler handler = new Handler(){
-    	public void handleMessage(Message msg){
-    		if(msg.what == 333){
-    			System.out.println("message 333 recieved!");
-    			ArrayAdapter<String> tempAdapter = new ArrayAdapter<String>(HomeActivity.this,android.R.layout.simple_list_item_1,mStrings);
-    			lv.setAdapter(tempAdapter);
-    		}
-    	}
-    };
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,13 +42,38 @@ public class HomeActivity  extends Activity  {
 		((TextView)findViewById(R.id.suggest2)).setText(suggests[1]);
 		((TextView)findViewById(R.id.suggest3)).setText(suggests[2]);
 		
+		home_suggest1 = (View)findViewById(R.id.home_suggest1);
+		home_suggest1.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				System.out.println("personalActivity--- click personal info");
+				Intent intent=new Intent(HomeActivity.this,GoodsActivity.class);
+				startActivity(intent);
+			}
+		});
+		
 		mStrings[0] = "Welcome";
+		final MyAdapter new_adapter = new MyAdapter(this);
 		lv=(ListView)findViewById(R.id.lvForSearch);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,mStrings);
-        lv.setAdapter(adapter);
+		lv.setAdapter(new_adapter);
+		//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,mStrings);
+        //lv.setAdapter(adapter);
         //lv.setTextFilterEnabled(true);
         
-        sv=(SearchView)findViewById(R.id.searchView);
+		handler = new Handler(){
+	    	public void handleMessage(Message msg){
+	    		if(msg.what == 333){
+	    			System.out.println("message 333 recieved!");
+	    			//ArrayAdapter<String> tempAdapter = new ArrayAdapter<String>(HomeActivity.this,android.R.layout.simple_list_item_1,mStrings);
+	    			//lv.setAdapter(tempAdapter);
+	    			//MyAdapter new_adapter = new MyAdapter(this);
+	    			//lv.setAdapter(new_adapter);
+	    			new_adapter.notifyDataSetChanged();
+	    		}
+	    	}
+	    };
+		
+        sv = (SearchView)findViewById(R.id.home_search);
         //设置该SearchView默认是否自动缩小为图标
         sv.setIconifiedByDefault(false);
         //为该SearchView组件设置事件监听器
@@ -62,7 +84,7 @@ public class HomeActivity  extends Activity  {
 				
 				//Toast.makeText(HomeActivity.this, "您选择的是："+query, Toast.LENGTH_SHORT).show();
 					//return true;
-				url=HttpUtil.BASE_URL+"page/AndroidSearchServlet?query=" + query;
+				url = HttpUtil.BASE_URL+"page/AndroidSearchServlet?query=" + query;
 				System.out.println(url);
 				Runnable runnable=new Runnable()
 				{
@@ -71,10 +93,13 @@ public class HomeActivity  extends Activity  {
 					{
 						msg=HttpUtil.queryStringForPost(url);
 						System.out.println("the result if search is :" + msg);
-						if(msg.length() == 0)
+						if(msg.length() == 0){
+							mStrings = new String[1];
 							mStrings[0] = "抱歉，没有符合的结果...";
-						else
+						}
+						else{
 							mStrings = msg.substring(1).split("\\*");
+						}
 						Message message = new Message();  
 		                message.what = 333;
 		                handler.sendMessage(message);
@@ -113,7 +138,34 @@ public class HomeActivity  extends Activity  {
            
     }
 	
-	
+	public class MyAdapter extends BaseAdapter{
+
+		private LayoutInflater mInflater;
+		public MyAdapter(Context context){
+			this.mInflater = LayoutInflater.from(context);
+		}
+		@Override
+		public int getCount() {
+			return mStrings.length;
+		}
+
+		@Override
+		public Object getItem(int position) {
+			return null;
+		}
+		@Override
+		public long getItemId(int position) {
+			return 0;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			convertView = mInflater.inflate(R.layout.home_list_item, null);
+			TextView text = (TextView)convertView.findViewById(R.id.list_suggest);
+			text.setText(mStrings[position]);
+			return convertView;
+		}
+	}
 }
 
 

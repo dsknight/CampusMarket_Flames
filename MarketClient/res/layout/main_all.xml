@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#eeeeee" >
+    <RelativeLayout
+        android:id="@+id/all_goods_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/top_background" >
 
+        <TextView
+            android:id="@+id/all_goods"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="所有商品" 
+            android:textSize="@dimen/topbar_text"
+            android:textColor="@color/topbar_text_color"/>
+    </RelativeLayout>
+    
     <ListView 
-        android:layout_width="wrap_content"   
-        android:layout_height="wrap_content"   
-        android:id="@+id/main_all_listView" />
-</LinearLayout>
+        android:id="@+id/main_all_listView" 
+        android:layout_below="@id/all_goods_topbar"
+        android:layout_width="fill_parent"   
+        android:layout_height="wrap_content"/>
+    
+</RelativeLayout>

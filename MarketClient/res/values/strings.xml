@@ -36,5 +36,15 @@
 	<string name="reset">重置</string>
 	
 	<string name="all_categories">全部分类</string>
-	
+	<string name="GoodsInfo">物品信息</string>
+
+	<string name="drop_down_list_header_default_text">Click to refresh&#8230;</string>
+    <string name="drop_down_list_header_pull_text">Drop Down to refresh&#8230;</string>
+    <string name="drop_down_list_header_release_text">Release to refresh&#8230;</string>
+    <string name="drop_down_list_header_loading_text">Loading&#8230;</string>
+    <string name="drop_down_list_footer_default_text">More</string>
+    <string name="drop_down_list_footer_loading_text">Loading&#8230;</string>
+    <string name="drop_down_list_footer_no_more_text">No More</string>
+    <string name="image_content">Image</string>
+  	
 </resources>

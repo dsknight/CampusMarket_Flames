@@ -1,6 +1,7 @@
 package com.example.market;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,36 +32,54 @@ public class CategoryActivity  extends Activity{
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(getApplicationContext(),"数码产品",Toast.LENGTH_SHORT).show();
+				Intent intent=new Intent(CategoryActivity.this,AllGoodsActivity.class);
+				intent.putExtra("text", "数码产品");
+				startActivity(intent);
 			}
 		});
 		skinCare.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(getApplicationContext(),"美容保健",Toast.LENGTH_SHORT).show();
+				Intent intent=new Intent(CategoryActivity.this,AllGoodsActivity.class);
+				intent.putExtra("text", "美容保健");
+				startActivity(intent);
 			}
 		});
 		book.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(getApplicationContext(),"图书音像",Toast.LENGTH_SHORT).show();
+				Intent intent=new Intent(CategoryActivity.this,AllGoodsActivity.class);
+				intent.putExtra("text", "图书音像");
+				startActivity(intent);
 			}
 		});
 		cloth.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(getApplicationContext(),"服装箱包",Toast.LENGTH_SHORT).show();
+				Intent intent=new Intent(CategoryActivity.this,AllGoodsActivity.class);
+				intent.putExtra("text", "服装箱包");
+				startActivity(intent);
 			}
 		});
 		furniture.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(getApplicationContext(),"家居代步",Toast.LENGTH_SHORT).show();
+				Intent intent=new Intent(CategoryActivity.this,AllGoodsActivity.class);
+				intent.putExtra("text", "家居代步");
+				startActivity(intent);
 			}
 		});
 		eat.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(getApplicationContext(),"饮食娱乐",Toast.LENGTH_SHORT).show();
+				Intent intent=new Intent(CategoryActivity.this,AllGoodsActivity.class);
+				intent.putExtra("text", "饮食娱乐");
+				startActivity(intent);
 			}
 		});
 	}

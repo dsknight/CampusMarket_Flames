@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.market.controlmysql.AttentionInfo;
 import org.market.controlmysql.ClientInfo;
 import org.market.controlmysql.GoodsInfo;
-import org.market.search.MarketSearch;
+
 import org.market.types.ClientType;
 
 public class AndroidLoginServlet extends HttpServlet {

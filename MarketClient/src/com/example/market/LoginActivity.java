@@ -1,8 +1,8 @@
 package com.example.market;
 
 import com.market.util.HttpUtil;
+import com.market.util.UserConfig;
 
-import android.R.string;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -24,7 +24,7 @@ public class LoginActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		System.out.println("welcome");
-		setContentView(R.layout.login);
+		setContentView(R.layout.a_login);
 		user_i=(EditText)findViewById(R.id.Editusername);
 		pw_i=(EditText)findViewById(R.id.Editpw);
 		login=(Button)findViewById(R.id.login);
@@ -35,10 +35,20 @@ public class LoginActivity extends Activity{
 				System.out.println("login---- click login");
 				if(validate()){
 					login();
-					while(if_login == 0){}
-					if(if_login == 2){
+					try {
+						Thread.sleep(1500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(if_login == 0){
+						showDialog("网络不稳定，请稍后再试");
+					}
+					else if(if_login == 2){
+						System.out.println("Turn to mainpage");
 						Intent intent_login=new Intent(LoginActivity.this,MainPageActivity.class);
 						startActivity(intent_login);
+						if_login = 0;
 					}
 					else if(if_login == 1){
 						showDialog("用户名称或者密码错误，请重新输入！");
@@ -89,12 +99,12 @@ public class LoginActivity extends Activity{
 			return false;
 		}
 		String pwd=pw_i.getText().toString();
+		System.out.println(pwd);
 		if(pwd.equals(""))
 		{
 			showDialog("用户密码是必填项");
 			return false;
 		}
-		
 		return true;
 	}
 	
@@ -109,25 +119,25 @@ public class LoginActivity extends Activity{
 			@Override
 			public void run()
 			{
-				//TODO:http request
-				System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
+				System.out.println("Android starts to send Login request\n");
 				String msg=HttpUtil.queryStringForPost(url);
-				if(msg==null||msg.equals("notFound"))
-				{
-					if_login=1;
+				if(msg == null){
+					if_login = 0; 
 				}
-				else
-				{
+				else if(msg.equals("notFound")){
+					if_login = 1;
+				}
+				else{
 					System.out.println(msg);
 					saveUserMsg(msg);
-					if_login= 2;
+					if_login = 2;
 				}
 			}
 		};
 		Thread thread_getgood=new Thread(runnable);
 		thread_getgood.setPriority(1);
 		thread_getgood.start();
-		return "";
+		return null;
 		//page/AndroidLoginServlet?
 	}
 	
@@ -145,35 +155,25 @@ public class LoginActivity extends Activity{
 		appState.setuserno(temp);
 		temp=msgs[1];
 		appState.setusername(temp);
+		
+		//Save User Information to Local [static] Configure file
+		UserConfig.id = Integer.parseInt(msgs[0]);
+		UserConfig.con_usr = msgs[1];
+		UserConfig.gender = Integer.parseInt(msgs[2]);
+		UserConfig.con_stuno = msgs[3];
+		UserConfig.con_phone = msgs[4];
+		UserConfig.con_email = msgs[5];
+		UserConfig.con_date = msgs[6];
+		
 		System.out.println(appState.getusername() + " may needs " + appState.getSuggest());
 	}
 	
 	
 	//登陆方法
-	private int login()
+	private void login()
 	{
 		String un=user_i.getText().toString();
 		String pwd=pw_i.getText().toString();
 		query(un,pwd);
-//		 try {
-//			 result=new  String(result.getBytes("ISO-8859_1"),"UTF-8");
-//		} catch (UnsupportedEncodingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} 
-		// System.out.println(result);
-//		System.out.println(un);
-//		System.out.println(pwd);
-//		System.out.println(result);
-//		if(result==null||result.equals("notFound"))
-//		{
-//			return false;
-//		}
-//		else
-//		{
-//			saveUserMsg(result);
-//			return true;
-//		}
-		 return if_login;
 	}
 }

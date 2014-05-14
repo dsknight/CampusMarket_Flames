@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#eeeeee" >
+    <RelativeLayout
+        android:id="@+id/needs_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/top_background" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="我的需求" 
+            android:textSize="@dimen/topbar_text"
+            android:textColor="@color/topbar_text_color"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/needs_pic"
+        android:layout_width="fill_parent"
+        android:layout_height="200dip"
+        android:layout_below="@id/needs_topbar"
+        android:layout_marginLeft="0dip"
+        android:layout_marginRight="0dip"
+        android:layout_marginTop="0dip"
+        android:scaleType="fitXY"
+        android:src="@drawable/whatyouneed" />
+
+    <TextView
+        android:id="@+id/needs_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/needs_pic"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="10dip"
+        android:text="请输入您的需求:"
+        android:textColor="@color/black"
+        android:textSize="@dimen/basic_text_size" />
+    
+    <LinearLayout
+        android:id="@+id/needs_input"
+        android:layout_width="match_parent"
+        android:layout_height="42dip"
+        android:layout_below="@id/needs_label"
+        android:layout_marginTop="5dip"
+        android:gravity="center_horizontal|center_vertical"
+        android:paddingLeft="10dip" >
+
+        <EditText
+            android:id="@+id/myneeds"
+            android:layout_width="0dip"
+            android:layout_height="42dip"
+            android:layout_weight="3"/>
+
+        <Button
+            android:id="@+id/deliverneeds"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dip"
+            android:layout_weight="1"
+            android:text="发布" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/needs_labe2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_below="@+id/needs_input"
+        android:layout_marginTop="4dip"
+        android:singleLine="false"
+        android:text="（系统将根据您的需求向您推荐商品）"
+        android:textColor="@color/des_grey" 
+        android:textSize="@dimen/basic_text_size"/>
+    
+</RelativeLayout>

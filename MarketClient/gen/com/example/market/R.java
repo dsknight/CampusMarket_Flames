@@ -9,13 +9,48 @@ package com.example.market;
 
 public final class R {
     public static final class attr {
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int isAutoLoadOnBottom=0x7f010002;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int isDropDownStyle=0x7f010000;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int isOnBottomStyle=0x7f010001;
     }
     public static final class color {
         public static final int black=0x7f040000;
         public static final int deep_blue=0x7f040002;
         public static final int deep_grey=0x7f040003;
+        public static final int des_grey=0x7f04000c;
+        /**  drop down list footer font color 
+         */
+        public static final int drop_down_list_footer_font_color=0x7f040011;
+        /**  drop down list header font color 
+         */
+        public static final int drop_down_list_header_font_color=0x7f04000f;
+        /**  drop down list header second font color 
+         */
+        public static final int drop_down_list_header_second_font_color=0x7f040010;
         public static final int feed_subtext=0x7f040009;
         public static final int gray=0x7f040006;
+        public static final int light_grey=0x7f04000e;
         public static final int med_gray=0x7f04000a;
         public static final int navpage=0x7f040001;
         public static final int orange=0x7f040007;
@@ -23,6 +58,7 @@ public final class R {
         public static final int text_panel_pressed=0x7f040008;
         public static final int topbar_text_color=0x7f04000b;
         public static final int tray_background=0x7f040004;
+        public static final int white=0x7f04000d;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -38,179 +74,213 @@ public final class R {
         public static final int bottom_tab_padding_drawable=0x7f050005;
         public static final int bottom_tab_padding_up=0x7f050004;
         public static final int button_height=0x7f050002;
+        public static final int drop_down_list_footer_button_height=0x7f05000e;
+        public static final int drop_down_list_footer_button_margin_left=0x7f05000d;
+        public static final int drop_down_list_footer_progress_bar_height=0x7f05000c;
+        public static final int drop_down_list_header_padding_bottom=0x7f050009;
+        public static final int drop_down_list_header_padding_top=0x7f050008;
+        public static final int drop_down_list_header_progress_bar_height=0x7f05000b;
+        public static final int drop_down_list_header_release_min_distance=0x7f05000a;
         public static final int topbar_text=0x7f050007;
     }
     public static final class drawable {
-        public static final int a=0x7f020000;
-        public static final int b=0x7f020001;
-        public static final int bottom_bar=0x7f020002;
-        public static final int c=0x7f020003;
-        public static final int catergory_book=0x7f020004;
-        public static final int catergory_cloth=0x7f020005;
-        public static final int catergory_digtcamer=0x7f020006;
-        public static final int catergory_eat=0x7f020007;
-        public static final int catergory_furnitrue=0x7f020008;
-        public static final int catergory_skincare=0x7f020009;
-        public static final int comm_bg_selected=0x7f02000a;
-        public static final int comm_shakebg_selected=0x7f02000b;
-        public static final int d=0x7f02000c;
-        public static final int e=0x7f02000d;
-        public static final int f=0x7f02000e;
-        public static final int home_btn_bg=0x7f02000f;
-        public static final int home_btn_bg_s=0x7f020010;
-        public static final int ic_launcher=0x7f020011;
-        public static final int login_button_background=0x7f020012;
-        public static final int login_input=0x7f020013;
-        public static final int login_line=0x7f020014;
-        public static final int main_navigation_car=0x7f020015;
-        public static final int main_navigation_catagory=0x7f020016;
-        public static final int main_navigation_home=0x7f020017;
-        public static final int main_navigation_personal=0x7f020018;
-        public static final int mm_submenu=0x7f020019;
-        public static final int mm_submenu_normal=0x7f02001a;
-        public static final int mm_submenu_pressed=0x7f02001b;
-        public static final int personal_background=0x7f02001c;
-        public static final int shape_bg=0x7f02001d;
-        public static final int shape_line=0x7f02001e;
+        public static final int bottom_bar=0x7f020000;
+        public static final int catergory_book=0x7f020001;
+        public static final int catergory_cloth=0x7f020002;
+        public static final int catergory_digtcamer=0x7f020003;
+        public static final int catergory_eat=0x7f020004;
+        public static final int catergory_furnitrue=0x7f020005;
+        public static final int catergory_skincare=0x7f020006;
+        public static final int comm_bg_selected=0x7f020007;
+        public static final int comm_shakebg_selected=0x7f020008;
+        public static final int drop_down_list_arrow=0x7f020009;
+        public static final int home_btn_bg=0x7f02000a;
+        public static final int home_btn_bg_s=0x7f02000b;
+        public static final int home_list_item_pressed=0x7f02000c;
+        public static final int ic_launcher=0x7f02000d;
+        public static final int loading=0x7f02000e;
+        public static final int login_button_background=0x7f02000f;
+        public static final int login_input=0x7f020010;
+        public static final int login_line=0x7f020011;
+        public static final int main_navigation_car=0x7f020012;
+        public static final int main_navigation_catagory=0x7f020013;
+        public static final int main_navigation_home=0x7f020014;
+        public static final int main_navigation_personal=0x7f020015;
+        public static final int mm_submenu=0x7f020016;
+        public static final int mm_submenu_normal=0x7f020017;
+        public static final int mm_submenu_pressed=0x7f020018;
+        public static final int personal_background=0x7f020019;
+        public static final int search_input=0x7f02001a;
+        public static final int searchbox_icon=0x7f02001b;
+        public static final int shape_bg=0x7f02001c;
+        public static final int shape_line=0x7f02001d;
+        public static final int shape_rectangle=0x7f02001e;
         public static final int top_background=0x7f02001f;
-        public static final int user=0x7f020020;
+        public static final int whatyouneed=0x7f020020;
     }
     public static final class id {
-        public static final int Confirm_PWD=0x7f090060;
-        public static final int Editpw=0x7f090012;
-        public static final int Editusername=0x7f090010;
-        public static final int FrameLayout_home=0x7f090000;
-        public static final int LinearLayout_detail=0x7f090006;
-        public static final int LinearLayout_home=0x7f090001;
-        public static final int LinearLayout_sort=0x7f090003;
-        public static final int LinearLayout_things=0x7f090071;
-        public static final int Mail=0x7f09006b;
-        public static final int Phone=0x7f09006e;
-        public static final int StuNo=0x7f090063;
-        public static final int action_settings=0x7f090073;
-        public static final int bottom_tray=0x7f09001c;
-        public static final int button1=0x7f09000c;
-        public static final int cancel=0x7f09006f;
-        public static final int category1=0x7f090023;
-        public static final int category2=0x7f090026;
-        public static final int category3=0x7f090028;
-        public static final int category4=0x7f09002a;
-        public static final int category5=0x7f09002c;
-        public static final int category6=0x7f09002e;
-        public static final int category_topbar=0x7f090022;
-        public static final int catergory_book=0x7f090029;
-        public static final int catergory_cloth=0x7f09002b;
-        public static final int catergory_digital=0x7f090024;
-        public static final int catergory_eat=0x7f09002f;
-        public static final int catergory_furniture=0x7f09002d;
-        public static final int catergory_skincare=0x7f090027;
-        public static final int catergoryitem_seller=0x7f09001b;
-        public static final int catergoryitem_title=0x7f090019;
-        public static final int female=0x7f090068;
-        public static final int imageView1=0x7f090007;
-        public static final int input_PWD=0x7f09005f;
-        public static final int input_UN=0x7f09005c;
-        public static final int input_account=0x7f09000f;
-        public static final int input_center_line=0x7f090011;
-        public static final int input_edit_text=0x7f09000e;
-        public static final int itemcontent1=0x7f090018;
-        public static final int itemcontent2=0x7f09001a;
-        public static final int linearLayout1=0x7f090058;
-        public static final int listView1=0x7f090004;
-        public static final int listView2=0x7f090005;
-        public static final int listView_goodslist=0x7f09000d;
-        public static final int listView_home=0x7f090002;
-        public static final int login=0x7f090014;
-        public static final int login_button=0x7f090013;
-        public static final int lvForSearch=0x7f090036;
-        public static final int main_all_listView=0x7f090017;
-        public static final int male=0x7f090067;
-        public static final int me_focus=0x7f09003b;
-        public static final int me_shopping=0x7f09003c;
-        public static final int me_storage=0x7f09003e;
-        public static final int me_top_background=0x7f090038;
-        public static final int me_topbar=0x7f090037;
-        public static final int me_usr=0x7f09003a;
-        public static final int me_usr_account=0x7f090041;
-        public static final int me_usr_email=0x7f09004f;
-        public static final int me_usr_info=0x7f090039;
-        public static final int me_usr_info_account=0x7f090040;
-        public static final int me_usr_info_topbar=0x7f09003f;
-        public static final int me_usr_info_user=0x7f090048;
-        public static final int me_usr_line1=0x7f090043;
-        public static final int me_usr_line2=0x7f090046;
-        public static final int me_usr_line3=0x7f09004b;
-        public static final int me_usr_line4=0x7f09004e;
-        public static final int me_usr_line5=0x7f090051;
-        public static final int me_usr_phone=0x7f090052;
-        public static final int me_usr_pwd=0x7f090044;
-        public static final int me_usr_sex=0x7f09004c;
-        public static final int me_usr_stuno=0x7f090049;
-        public static final int ok=0x7f090070;
-        public static final int personal_account=0x7f090042;
-        public static final int personal_confirm=0x7f090047;
-        public static final int personal_mail=0x7f090050;
-        public static final int personal_phone=0x7f090053;
-        public static final int personal_pwd=0x7f090045;
-        public static final int personal_sex=0x7f09004d;
-        public static final int personal_stuno=0x7f09004a;
-        public static final int register=0x7f090057;
-        public static final int register_account=0x7f09005b;
-        public static final int register_account_info=0x7f09005a;
-        public static final int register_email=0x7f09006a;
-        public static final int register_line1=0x7f09005d;
-        public static final int register_line2=0x7f09003d;
-        public static final int register_line3=0x7f090064;
-        public static final int register_line4=0x7f090069;
-        public static final int register_line5=0x7f09006c;
-        public static final int register_phone=0x7f09006d;
-        public static final int register_pwd=0x7f09005e;
-        public static final int register_sex=0x7f090065;
-        public static final int register_stuno=0x7f090062;
-        public static final int register_user_info=0x7f090061;
-        public static final int relativeLayout=0x7f090025;
-        public static final int reset=0x7f090054;
-        public static final int save=0x7f090055;
-        public static final int searchView=0x7f090035;
-        public static final int sex=0x7f090066;
-        public static final int signin=0x7f090016;
-        public static final int signup_button=0x7f090015;
-        public static final int suggest1=0x7f090032;
-        public static final int suggest2=0x7f090033;
-        public static final int suggest3=0x7f090034;
-        public static final int suggestContent=0x7f090030;
-        public static final int tableRow1=0x7f090008;
-        public static final int tableRow2=0x7f090009;
-        public static final int tableRow3=0x7f09000a;
-        public static final int tableRow4=0x7f09000b;
-        public static final int textView1=0x7f090031;
-        public static final int textView2=0x7f090056;
-        public static final int textView3=0x7f090059;
-        public static final int textView_goods=0x7f090072;
-        public static final int tray_category=0x7f090020;
-        public static final int tray_ease=0x7f09001f;
-        public static final int tray_home=0x7f09001e;
-        public static final int tray_items=0x7f09001d;
-        public static final int tray_me=0x7f090021;
+        public static final int Confirm_PWD=0x7f090013;
+        public static final int Editpw=0x7f090004;
+        public static final int Editusername=0x7f090002;
+        public static final int Mail=0x7f09001e;
+        public static final int Phone=0x7f090021;
+        public static final int StuNo=0x7f090016;
+        public static final int action_settings=0x7f090089;
+        public static final int all_goods=0x7f090039;
+        public static final int all_goods_topbar=0x7f090038;
+        public static final int bottom_tray=0x7f09003f;
+        public static final int cancel=0x7f090022;
+        public static final int category1=0x7f090046;
+        public static final int category2=0x7f090049;
+        public static final int category3=0x7f09004b;
+        public static final int category4=0x7f09004d;
+        public static final int category5=0x7f09004f;
+        public static final int category6=0x7f090051;
+        public static final int category_topbar=0x7f090045;
+        public static final int catergory_book=0x7f09004c;
+        public static final int catergory_cloth=0x7f09004e;
+        public static final int catergory_digital=0x7f090047;
+        public static final int catergory_eat=0x7f090052;
+        public static final int catergory_furniture=0x7f090050;
+        public static final int catergory_skincare=0x7f09004a;
+        public static final int catergoryitem_seller=0x7f09003e;
+        public static final int catergoryitem_title=0x7f09003c;
+        public static final int deliverneeds=0x7f090087;
+        public static final int drop_down_list_footer_button=0x7f090027;
+        public static final int drop_down_list_footer_progress_bar=0x7f090026;
+        public static final int drop_down_list_header_default_text=0x7f09002b;
+        public static final int drop_down_list_header_default_text_layout=0x7f090029;
+        public static final int drop_down_list_header_image=0x7f09002a;
+        public static final int drop_down_list_header_progress_bar=0x7f090028;
+        public static final int drop_down_list_header_second_text=0x7f09002c;
+        public static final int female=0x7f09001b;
+        public static final int goods_description=0x7f090031;
+        public static final int goods_info_line1=0x7f090030;
+        public static final int goods_info_line2=0x7f090032;
+        public static final int goods_info_pic=0x7f09002e;
+        public static final int goods_info_topbar=0x7f09002d;
+        public static final int goods_name=0x7f09002f;
+        public static final int goods_provider_date=0x7f090036;
+        public static final int goods_provider_email=0x7f090035;
+        public static final int goods_provider_name=0x7f090033;
+        public static final int goods_provider_phone=0x7f090034;
+        public static final int home_label=0x7f090057;
+        public static final int home_lable_line=0x7f090058;
+        public static final int home_line2=0x7f09005b;
+        public static final int home_line3=0x7f09005e;
+        public static final int home_needs=0x7f090056;
+        public static final int home_search=0x7f090054;
+        public static final int home_suggest1=0x7f090059;
+        public static final int home_suggest2=0x7f09005c;
+        public static final int home_suggest3=0x7f09005f;
+        public static final int home_topbar=0x7f090053;
+        public static final int input_PWD=0x7f090011;
+        public static final int input_UN=0x7f09000e;
+        public static final int input_account=0x7f090001;
+        public static final int input_center_line=0x7f090003;
+        public static final int input_edit_text=0x7f090000;
+        public static final int itemcontent1=0x7f09003b;
+        public static final int itemcontent2=0x7f09003d;
+        public static final int linearLayout1=0x7f09000a;
+        public static final int list_suggest=0x7f090037;
+        public static final int login=0x7f090006;
+        public static final int login_button=0x7f090005;
+        public static final int lvForSearch=0x7f090055;
+        public static final int main_all_listView=0x7f09003a;
+        public static final int male=0x7f09001a;
+        public static final int me_focus=0x7f090065;
+        public static final int me_shopping=0x7f090066;
+        public static final int me_storage=0x7f090067;
+        public static final int me_top_background=0x7f090062;
+        public static final int me_topbar=0x7f090061;
+        public static final int me_usr=0x7f090064;
+        public static final int me_usr_account=0x7f09006a;
+        public static final int me_usr_email=0x7f090078;
+        public static final int me_usr_info=0x7f090063;
+        public static final int me_usr_info_account=0x7f090069;
+        public static final int me_usr_info_topbar=0x7f090068;
+        public static final int me_usr_info_user=0x7f090071;
+        public static final int me_usr_line1=0x7f09006c;
+        public static final int me_usr_line2=0x7f09006f;
+        public static final int me_usr_line3=0x7f090074;
+        public static final int me_usr_line4=0x7f090077;
+        public static final int me_usr_line5=0x7f09007a;
+        public static final int me_usr_phone=0x7f09007b;
+        public static final int me_usr_pwd=0x7f09006d;
+        public static final int me_usr_sex=0x7f090075;
+        public static final int me_usr_stuno=0x7f090072;
+        public static final int myGoodsList=0x7f090080;
+        public static final int my_goods_items1=0x7f090081;
+        public static final int my_goods_topbar=0x7f09007f;
+        public static final int myneeds=0x7f090086;
+        public static final int needs_input=0x7f090085;
+        public static final int needs_labe2=0x7f090088;
+        public static final int needs_label=0x7f090084;
+        public static final int needs_pic=0x7f090083;
+        public static final int needs_topbar=0x7f090082;
+        public static final int ok=0x7f090023;
+        public static final int personal_account=0x7f09006b;
+        public static final int personal_confirm=0x7f090070;
+        public static final int personal_mail=0x7f090079;
+        public static final int personal_phone=0x7f09007c;
+        public static final int personal_pwd=0x7f09006e;
+        public static final int personal_sex=0x7f090076;
+        public static final int personal_stuno=0x7f090073;
+        public static final int register=0x7f090009;
+        public static final int register_account=0x7f09000d;
+        public static final int register_account_info=0x7f09000c;
+        public static final int register_email=0x7f09001d;
+        public static final int register_line1=0x7f09000f;
+        public static final int register_line2=0x7f090012;
+        public static final int register_line3=0x7f090017;
+        public static final int register_line4=0x7f09001c;
+        public static final int register_line5=0x7f09001f;
+        public static final int register_phone=0x7f090020;
+        public static final int register_pwd=0x7f090010;
+        public static final int register_sex=0x7f090018;
+        public static final int register_stuno=0x7f090015;
+        public static final int register_user_info=0x7f090014;
+        public static final int relativeLayout=0x7f090048;
+        public static final int reset=0x7f09007d;
+        public static final int save=0x7f09007e;
+        public static final int sex=0x7f090019;
+        public static final int signin=0x7f090008;
+        public static final int signup_button=0x7f090007;
+        public static final int suggest1=0x7f09005a;
+        public static final int suggest2=0x7f09005d;
+        public static final int suggest3=0x7f090060;
+        public static final int textView1=0x7f090025;
+        public static final int textView2=0x7f090024;
+        public static final int textView3=0x7f09000b;
+        public static final int tray_category=0x7f090043;
+        public static final int tray_ease=0x7f090042;
+        public static final int tray_home=0x7f090041;
+        public static final int tray_items=0x7f090040;
+        public static final int tray_me=0x7f090044;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int goodslist=0x7f030001;
-        public static final int login=0x7f030002;
-        public static final int main_all=0x7f030003;
-        public static final int main_all_listitems=0x7f030004;
-        public static final int main_bottom=0x7f030005;
-        public static final int main_categories=0x7f030006;
-        public static final int main_home=0x7f030007;
-        public static final int main_me=0x7f030008;
-        public static final int main_me_user=0x7f030009;
-        public static final int register=0x7f03000a;
-        public static final int sort=0x7f03000b;
+        public static final int a_login=0x7f030000;
+        public static final int a_register=0x7f030001;
+        public static final int drop_down_list_footer=0x7f030002;
+        public static final int drop_down_list_header=0x7f030003;
+        public static final int goods_info=0x7f030004;
+        public static final int home_list_item=0x7f030005;
+        public static final int main_all=0x7f030006;
+        public static final int main_all_list_item=0x7f030007;
+        public static final int main_bottom=0x7f030008;
+        public static final int main_categories=0x7f030009;
+        public static final int main_home=0x7f03000a;
+        public static final int main_me=0x7f03000b;
+        public static final int main_me_info=0x7f03000c;
+        public static final int my_goods=0x7f03000d;
+        public static final int my_goods_list_item=0x7f03000e;
+        public static final int my_need=0x7f03000f;
     }
     public static final class menu {
         public static final int main=0x7f080000;
     }
     public static final class string {
+        public static final int GoodsInfo=0x7f060021;
         public static final int account_info=0x7f06001c;
         public static final int action_settings=0x7f060001;
         public static final int all_categories=0x7f060020;
@@ -219,7 +289,15 @@ public final class R {
         public static final int button_login=0x7f060004;
         public static final int button_ok=0x7f060012;
         public static final int button_signup=0x7f060005;
+        public static final int drop_down_list_footer_default_text=0x7f060026;
+        public static final int drop_down_list_footer_loading_text=0x7f060027;
+        public static final int drop_down_list_footer_no_more_text=0x7f060028;
+        public static final int drop_down_list_header_default_text=0x7f060022;
+        public static final int drop_down_list_header_loading_text=0x7f060025;
+        public static final int drop_down_list_header_pull_text=0x7f060023;
+        public static final int drop_down_list_header_release_text=0x7f060024;
         public static final int female=0x7f06000c;
+        public static final int image_content=0x7f060029;
         public static final int image_descrption=0x7f060019;
         public static final int login_account=0x7f060002;
         public static final int login_pwd=0x7f060003;
@@ -273,7 +351,73 @@ public final class R {
          */
         public static final int AppTheme=0x7f070001;
         public static final int base_text=0x7f070002;
+        public static final int drop_down_list_footer_font_style=0x7f070009;
+        public static final int drop_down_list_footer_progress_bar_style=0x7f070006;
+        public static final int drop_down_list_header_font_style=0x7f070007;
+        public static final int drop_down_list_header_progress_bar_style=0x7f070005;
+        public static final int drop_down_list_header_second_font_style=0x7f070008;
         public static final int feed_subtext_on_white=0x7f070003;
         public static final int main_tab_bottom=0x7f070004;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a drop_down_list_attr.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #drop_down_list_attr_isAutoLoadOnBottom com.example.market:isAutoLoadOnBottom}</code></td><td></td></tr>
+           <tr><td><code>{@link #drop_down_list_attr_isDropDownStyle com.example.market:isDropDownStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #drop_down_list_attr_isOnBottomStyle com.example.market:isOnBottomStyle}</code></td><td></td></tr>
+           </table>
+           @see #drop_down_list_attr_isAutoLoadOnBottom
+           @see #drop_down_list_attr_isDropDownStyle
+           @see #drop_down_list_attr_isOnBottomStyle
+         */
+        public static final int[] drop_down_list_attr = {
+            0x7f010000, 0x7f010001, 0x7f010002
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.example.market.R.attr#isAutoLoadOnBottom}
+          attribute's value can be found in the {@link #drop_down_list_attr} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.example.market:isAutoLoadOnBottom
+        */
+        public static final int drop_down_list_attr_isAutoLoadOnBottom = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.example.market.R.attr#isDropDownStyle}
+          attribute's value can be found in the {@link #drop_down_list_attr} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.example.market:isDropDownStyle
+        */
+        public static final int drop_down_list_attr_isDropDownStyle = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.example.market.R.attr#isOnBottomStyle}
+          attribute's value can be found in the {@link #drop_down_list_attr} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.example.market:isOnBottomStyle
+        */
+        public static final int drop_down_list_attr_isOnBottomStyle = 1;
+    };
 }
