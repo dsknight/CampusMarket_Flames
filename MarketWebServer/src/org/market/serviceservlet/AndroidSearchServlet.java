@@ -71,6 +71,8 @@ public class AndroidSearchServlet extends HttpServlet {
 		String searchResult =  goodsInfo.searchGoods(searchKey);
 		System.out.println(searchResult);
 		out.print(searchResult);
+		out.flush();
+		out.close();
 	}
 
 	/**

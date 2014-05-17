@@ -115,17 +115,16 @@ public class ClientInfo {
 	}
 	public boolean modifyClient(ClientType client){
 		boolean flag  = false;
-		String sql = "UPDATE tb_customer SET CPassword=?,CGender=?,CStuNO=?,CPhone=? WHERE CID = ?";
+		String sql = "UPDATE tb_customer SET CPassword=?,CEmail=?,CPhone=? WHERE CID = ?";
 		conn = ConnectMysql.connect();
 		PreparedStatement pstmt = null;
 		try{
 			conn.setAutoCommit(false);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, client.getPassword());
-			pstmt.setInt(2, client.getGender());
-			pstmt.setString(3, client.getStuNO());
-			pstmt.setString(4, client.getPhone());
-			pstmt.setString(5, client.getName());
+			pstmt.setString(2, client.getEmail());
+			pstmt.setString(3, client.getPhone());
+			pstmt.setString(4, client.getName());
 			if(pstmt.executeUpdate() > 0){
 				flag = true;
 			}

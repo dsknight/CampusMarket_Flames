@@ -1,10 +1,14 @@
 package org.market.types;
 
+import java.io.IOException;
+
+import org.market.search.Segmentation;
+
 public class GoodsType {
 	private int GNO;
 	private String name;
 	private String lexemeName;//分词之后的结果
-	private int owner;
+	private String owner;
 	private double price;
 	private String image;
 	private int mainClass;
@@ -17,7 +21,7 @@ public class GoodsType {
 	public GoodsType(){
 		super();
 	}
-	public GoodsType(String name,int owner,double price,String image,
+	public GoodsType(String name,String owner,double price,String image,
 			int mainClass,int subClass,String introduction,String date){
 		this.name = name;
 		this.owner = owner;
@@ -28,6 +32,24 @@ public class GoodsType {
 		this.introduction = introduction;
 		this.date = date;
 	}
+	
+	public GoodsType(String goodsString)throws IOException{
+		String[] items = goodsString.split("!\\|G");
+		this.GNO = Integer.parseInt(items[0]);
+		this.name = items[1];
+		this.lexemeName = Segmentation.IKAnalyze(items[1]);
+		this.owner = items[2];
+		this.price = Integer.parseInt(items[3]);
+		this.image = items[4];
+		this.introduction = items[5];
+		this.date = items[6];
+	}
+	
+	public String toString(){//以$开始，条目之间以|分割，以*结束
+		return "!$G" + GNO + "!|G" + name + "!|G" + owner + "!|G" + price + "!|G" + image 
+				   + "!|G" + introduction + "!|G" + date + "!*G";
+	}
+	
 	public int getGNO(){
 		return GNO;
 	}
@@ -40,10 +62,10 @@ public class GoodsType {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getOwner() {
+	public String getOwner() {
 		return owner;
 	}
-	public void setOwner(int owner) {
+	public void setOwner(String owner) {
 		this.owner = owner;
 	}
 	public double getPrice() {

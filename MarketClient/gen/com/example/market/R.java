@@ -388,7 +388,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.example.market:isAutoLoadOnBottom
+          @attr name android:isAutoLoadOnBottom
         */
         public static final int drop_down_list_attr_isAutoLoadOnBottom = 2;
         /**
@@ -402,7 +402,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.example.market:isDropDownStyle
+          @attr name android:isDropDownStyle
         */
         public static final int drop_down_list_attr_isDropDownStyle = 0;
         /**
@@ -416,7 +416,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.example.market:isOnBottomStyle
+          @attr name android:isOnBottomStyle
         */
         public static final int drop_down_list_attr_isOnBottomStyle = 1;
     };

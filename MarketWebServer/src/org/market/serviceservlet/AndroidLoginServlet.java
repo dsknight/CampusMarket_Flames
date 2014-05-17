@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.market.controlmysql.AttentionInfo;
 import org.market.controlmysql.ClientInfo;
 import org.market.controlmysql.GoodsInfo;
 
@@ -80,20 +79,17 @@ public class AndroidLoginServlet extends HttpServlet {
 		if(serveAndroid.login(androidClient)){
 			System.out.println("Start serving Android...");
 			ClientType respClient = serveAndroid.viewIndividualInfo(usr);
-			int usrNO = respClient.getCNO();
-			System.out.println(usr+" needs " + gInfo.needGoods(usrNO));
-			AttentionInfo supply_request = new AttentionInfo();
-			int supply = supply_request.supply(usr);
-			int reqst = supply_request.request(usr);
-			System.out.println("supply:"+supply+"\nrequest:"+reqst+"\nStart sending message...");
-			out.print(build(respClient,supply,reqst));
+			System.out.println(usr+" needs " + gInfo.needGoods(usr));
+			out.print(respClient.toString());
 			//返回推荐信息
-			out.print(gInfo.searchGoods((gInfo.needGoods(usrNO))));
+			out.print(gInfo.searchGoods((gInfo.needGoods(usr))));
 			System.out.println("Succeed!!!!!!");
 		}else{
 			System.out.println("Android Search: no such guy");
 			out.print("notFound");
 		}
+		out.flush();
+		out.close();
 	}
 
 	/**
@@ -105,10 +101,6 @@ public class AndroidLoginServlet extends HttpServlet {
 		// Put your code here
 	}
 	
-	public String build(ClientType client,int sup,int req){
-		return client.getCNO()+"|"+client.getName()+"|"+client.getGender()+"|"+client.getStuNO()
-		+"|"+client.getPhone()+"|"+client.getEmail()+"|"+client.getDate()
-		+"|"+sup+"|"+req+"|";
-	}
+	
 
 }

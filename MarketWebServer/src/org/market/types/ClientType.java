@@ -1,5 +1,6 @@
 package org.market.types;
 
+
 public class ClientType {
 	private int CNO;
 	private String name;
@@ -29,6 +30,23 @@ public class ClientType {
 		this.email = email;
 		this.date = date;
 	}
+	public ClientType(String clientString){
+		String[] items = clientString.split("!\\|C");
+		this.CNO = Integer.parseInt(items[0]);
+		this.name = items[1];
+		this.password = items[2];
+		this.gender = Integer.parseInt(items[3]);
+		this.stuNO = items[4];
+		this.phone = items[5];
+		this.email = items[6];
+		this.date = items[7];
+	}
+	
+	public String toString(){
+		return "!$C" + CNO + "!|C" + name + "!|C" + password + "!|C" + gender + "!|C" + stuNO 
+				+ "!|C" + phone + "!|C" + email + "!|C" + date + "!*C";
+	}
+	
 	public int getCNO() {
 		return CNO;
 	}

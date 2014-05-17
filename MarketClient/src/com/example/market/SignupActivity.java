@@ -119,11 +119,11 @@ public class SignupActivity extends Activity{
 	
 	private void query(ClientType user)
 	{
-		usern = user.getUsername();
-		passw = user.getPassward();
-		stuno = user.getStuNo();
-		sex_user = user.getSex();
-		email = user.getMail();
+		usern = user.getName();
+		passw = user.getPassword();
+		stuno = user.getStuNO();
+		sex_user = user.getGender();
+		email = user.getEmail();
 		phonenum = user.getPhone();
 
 		String queryString="username="+usern+"&password="+passw+
@@ -213,7 +213,7 @@ public class SignupActivity extends Activity{
 		else if(female.isChecked()){
 			gender = 0;
 		}
-		ClientType newUser = new ClientType(ip_un,ip_pwd,ip_mail,ip_stuNO,ip_phone,gender);
+		ClientType newUser = new ClientType(ip_un,ip_pwd,gender,ip_stuNO,ip_phone,ip_mail,null);
 		query(newUser);
 	}
 	

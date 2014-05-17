@@ -1,44 +1,82 @@
 package com.market.types;
 
+
 public class ClientType {
-	String username;
-	String passward;
-	String mail;
-	String stuNo;
-	String phone;
-	int sex;
-	public ClientType(String un,String pwd,String mail,String stuNo,String phone,int sex){
-		this.username = un;
-		this.passward = pwd;
-		this.mail = mail;
-		this.stuNo = stuNo;
+	private int CNO;
+	private String name;
+	private String password;
+	private int gender;
+	private String stuNO;
+	private String phone;
+	private String email;
+	private String date;
+	private String needs;
+	
+	public ClientType(){
+		super();
+	}
+	public ClientType(String name,String password){
+		this.name = name;
+		this.password = password;
+		this.gender = 0;
+		this.stuNO = this.phone = this.email = this.date = "";
+	}
+	public ClientType(String name,String password,int gender,String stuNO,String phone,String email,String date){
+		this.name = name;
+		this.password = password;
+		this.gender = gender;
+		this.stuNO = stuNO;
 		this.phone = phone;
-		this.sex = sex;
-		
+		this.email = email;
+		this.date = date;
 	}
-	public String getUsername() {
-		return username;
+	public ClientType(String clientString){
+		System.out.println(clientString);
+		String[] items = clientString.split("!\\|C");
+		this.CNO = Integer.parseInt(items[0]);
+		this.name = items[1];
+		this.password = items[2];
+		this.gender = Integer.parseInt(items[3]);
+		this.stuNO = items[4];
+		this.phone = items[5];
+		this.email = items[6];
+		this.date = items[7];
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	
+	public String toString(){
+		return "!$C" + CNO + "!|C" + name + "!|C" + password + "!|C" + gender + "!|C" + stuNO 
+				+ "!|C" + phone + "!|C" + email + "!|C" + date + "!*C";
 	}
-	public String getPassward() {
-		return passward;
+	
+	public int getCNO() {
+		return CNO;
 	}
-	public void setPassward(String passward) {
-		this.passward = passward;
+	public void setCNO(int CNO){
+		this.CNO = CNO;
 	}
-	public String getMail() {
-		return mail;
+	public String getName() {
+		return name;
 	}
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getStuNo() {
-		return stuNo;
+	public String getPassword() {
+		return password;
 	}
-	public void setStuNo(String stuNo) {
-		this.stuNo = stuNo;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public int getGender() {
+		return gender;
+	}
+	public void setGender(int gender) {
+		this.gender = gender;
+	}
+	public String getStuNO() {
+		return stuNO;
+	}
+	public void setStuNO(String stuNO) {
+		this.stuNO = stuNO;
 	}
 	public String getPhone() {
 		return phone;
@@ -46,10 +84,23 @@ public class ClientType {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public int getSex() {
-		return sex;
+	public String getEmail() {
+		return email;
 	}
-	public void setSex(int sex) {
-		this.sex = sex;
+	public void setEmail(String email) {
+		this.email = email;
 	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public String getNeeds(){
+		return this.needs;
+	}
+	public void setNeeds(String needs){
+		this.needs = needs;
+	}
+	
 }

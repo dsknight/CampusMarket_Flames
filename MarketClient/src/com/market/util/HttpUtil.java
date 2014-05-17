@@ -12,7 +12,7 @@ import org.apache.http.util.EntityUtils;
 
 public class HttpUtil {
 	//ÉùÃ÷Base URL±äÁ¿
-	public static final String BASE_URL="http://192.168.2.104:8080/Market/";
+	public static final String BASE_URL="http://10.0.2.2:8080/Market/";
 	//public static final String BASE_URL1="http://169.254.50.166:8080/Market/";
 	public static HttpGet getHttpGet(String url)
 	{
@@ -111,6 +111,7 @@ public class HttpUtil {
 			if(response.getStatusLine().getStatusCode()==200)
 			{
 				result=EntityUtils.toString(response.getEntity(),HTTP.UTF_8);
+				System.out.print(result);
 				return result;
 			}
 		}catch(ClientProtocolException e)
