@@ -12,7 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class AlterUsrNeedActivity extends Activity{ 
+public class MyNeedActivity extends Activity{ 
 
 	private EditText myNeed;
 	private Button deliver;

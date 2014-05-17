@@ -12,7 +12,7 @@ import org.apache.http.util.EntityUtils;
 
 public class HttpUtil {
 	//ÉùÃ÷Base URL±äÁ¿
-	public static final String BASE_URL="http://192.168.2.104:8080/Market/";
+	public static final String BASE_URL="http://114.212.133.8:8080/Market/";
 	//public static final String BASE_URL1="http://169.254.50.166:8080/Market/";
 	public static HttpGet getHttpGet(String url)
 	{

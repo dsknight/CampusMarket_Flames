@@ -21,10 +21,11 @@
             android:textColor="@color/topbar_text_color"/>
     </RelativeLayout>
     
-    <ListView 
-        android:id="@+id/main_all_listView" 
+    <com.market.util.XListView
+        android:id="@+id/all_goods_XListView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/all_goods_topbar"
-        android:layout_width="fill_parent"   
-        android:layout_height="wrap_content"/>
+        android:cacheColorHint="#00000000"/>
     
 </RelativeLayout>

@@ -1,0 +1,176 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee"
+    tools:context=".AddGoodsActivity" >
+
+    <RelativeLayout
+        android:id="@+id/my_goods_info_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/top_background" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="商品信息" 
+            android:textSize="@dimen/topbar_text"
+            android:textColor="@color/topbar_text_color"/>
+    </RelativeLayout>
+
+    <LinearLayout
+	    android:id="@+id/my_goods_info1"
+	    android:layout_below="@id/my_goods_info_topbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="5.0dip"
+        android:background="@drawable/shape_bg"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+        <TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="10dip"
+		    android:layout_marginTop="10.0dip"
+		    android:layout_marginBottom="10.0dip"
+		    android:text="商品名称："
+		    android:textColor="@color/des_grey"
+		    android:textSize="@dimen/basic_text_size" />
+        <ImageView   
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="@drawable/login_line"
+            android:contentDescription="@string/image_descrption" />
+        <TextView
+            android:id="@+id/my_goods_info_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:layout_marginLeft="30dip"
+            android:layout_marginBottom="10dip"
+            android:text="商品应该取个名字"
+            android:textSize="@dimen/basic_text_size"
+            android:singleLine="false"
+            android:textColor="#cccccc" />
+    </LinearLayout>
+    
+    <LinearLayout
+	    android:id="@+id/my_goods_info2"
+	    android:layout_below="@id/my_goods_info1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="10.0dip"
+        android:background="@drawable/shape_bg"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+        <TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="10dip"
+		    android:layout_marginTop="10.0dip"
+		    android:layout_marginBottom="10.0dip"
+		    android:text="商品描述："
+		    android:textColor="@color/des_grey"
+		    android:textSize="@dimen/basic_text_size" />
+        <ImageView   
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="@drawable/login_line"
+            android:contentDescription="@string/image_descrption" />
+        <EditText
+            android:id="@+id/add_goods_name"
+            android:layout_width="260dip"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:singleLine="false"
+            android:layout_marginTop="10dip"
+            android:layout_marginBottom="10dip"
+            android:layout_marginLeft="20dip"
+            android:text="这个商品会很火！！火火火火火火火火火火火火火火火火火"
+            android:background="@null"
+            android:inputType="textMultiLine"/>
+    </LinearLayout>
+    
+   
+    <LinearLayout
+	    android:id="@+id/my_goods_info4"
+	    android:layout_below="@id/my_goods_info2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="10.0dip"
+        android:background="@drawable/shape_bg"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dip" 
+            android:layout_marginBottom="10dip">
+            <TextView
+                android:layout_width="50dip"
+                android:layout_height="wrap_content"
+                android:text="分类："
+                android:textColor="@color/des_grey" 
+                android:textSize="@dimen/basic_text_size"
+                android:layout_marginTop="10dip"/>
+            <TextView
+                android:id="@+id/my_goods_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:layout_marginLeft="50dip"
+                android:text="这是商品分类"
+                android:textSize="@dimen/basic_text_size"
+                android:textColor="#cccccc" />
+        </LinearLayout>
+        <ImageView   
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="@drawable/login_line"
+            android:contentDescription="@string/image_descrption" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dip" >
+            <TextView
+                android:layout_width="50dip"
+                android:layout_height="wrap_content"
+                android:text="价格："
+                android:textColor="@color/des_grey" 
+                android:textSize="@dimen/basic_text_size"
+                android:layout_marginTop="10dip"/>
+            <EditText
+                android:id="@+id/my_goods_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="50dip"
+                android:text="200左右是不是有点便宜"
+                android:textSize="@dimen/basic_text_size"
+                android:background="@null"
+                android:textColor="@color/black" />
+        </LinearLayout>
+    </LinearLayout>
+    
+    <Button
+       android:id="@+id/my_goods_info_button"
+       android:layout_width="140dip"
+       android:layout_height="wrap_content"
+       android:layout_below="@id/my_goods_info4"
+       android:layout_centerHorizontal="true"
+       android:layout_marginTop="15.0dip"
+       android:gravity="center"
+       android:text="修改" />
+    
+</RelativeLayout>

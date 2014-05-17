@@ -24,7 +24,6 @@ public class PersonalActivity  extends Activity{
 		usr_info.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				System.out.println("personalActivity--- click personal info");
 				Intent intent=new Intent(PersonalActivity.this,AlterUsrInfoActivity.class);
 				startActivity(intent);
 			}
@@ -32,7 +31,7 @@ public class PersonalActivity  extends Activity{
 		shopping_info.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				Intent intent=new Intent(PersonalActivity.this,AlterUsrNeedActivity.class);
+				Intent intent=new Intent(PersonalActivity.this,MyNeedActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -40,6 +39,8 @@ public class PersonalActivity  extends Activity{
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(getApplicationContext(),"ªıº‹–≈œ¢",Toast.LENGTH_SHORT).show();
+				Intent intent=new Intent(PersonalActivity.this,MyGoodsActivity.class);
+				startActivity(intent);
 			}
 		});
 	}
