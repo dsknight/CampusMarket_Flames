@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -46,15 +45,30 @@ public class HomeActivity  extends Activity  {
 		home_suggest1.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				System.out.println("personalActivity--- click personal info");
-				Intent intent=new Intent(HomeActivity.this,GoodsActivity.class);
+				Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
+				startActivity(intent);
+			}
+		});
+		home_suggest2 = (View)findViewById(R.id.home_suggest2);
+		home_suggest2.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
+				startActivity(intent);
+			}
+		});
+		home_suggest3 = (View)findViewById(R.id.home_suggest3);
+		home_suggest3.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
 				startActivity(intent);
 			}
 		});
 		
 		mStrings[0] = "Welcome";
 		final MyAdapter new_adapter = new MyAdapter(this);
-		lv=(ListView)findViewById(R.id.lvForSearch);
+		lv = (ListView)findViewById(R.id.lvForSearch);
 		lv.setAdapter(new_adapter);
 		//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,mStrings);
         //lv.setAdapter(adapter);

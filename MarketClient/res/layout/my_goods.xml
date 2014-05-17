@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="fill_parent"
+	android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#eeeeee" >
     <RelativeLayout
@@ -18,15 +18,54 @@ android:layout_width="fill_parent"
             android:text="我的商品" 
             android:textSize="@dimen/topbar_text"
             android:textColor="@color/topbar_text_color"/>
-    </RelativeLayout> 
-    <ListView
-        android:id="@+id/myGoodsList"
-        android:layout_width="wrap_content"
+    </RelativeLayout>
+    <Button
+       android:id="@+id/add_good_button"
+       android:layout_width="140dip"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/my_goods_topbar"
+       android:layout_centerHorizontal="true"
+       android:layout_marginTop="5.0dip"
+       android:gravity="center"
+       android:text="添加商品" />
+    
+    <LinearLayout
+	    android:id="@+id/my_goods_list"
+	    android:layout_below="@id/add_good_button"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/my_goods_topbar"
-        android:layout_marginTop="15.0dip"
-        android:divider="@color/deep_grey"
-        android:dividerHeight="1dip" >
-    </ListView>
+        android:layout_marginLeft="5.0dip"
+        android:layout_marginRight="5.0dip"
+        android:layout_marginTop="5.0dip"
+        android:background="@drawable/shape_bg"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+		<TextView
+		    android:id="@+id/my_goods_label"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="10dip"
+		    android:layout_marginTop="10.0dip"
+		     android:layout_marginBottom="10.0dip"
+		    android:text="我的商品"
+		    android:textColor="@color/black"
+		    android:textSize="@dimen/basic_text_size" />
+		<ImageView        
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="@drawable/login_line"
+            android:contentDescription="@string/image_descrption" />
+	    <ListView
+	        android:id="@+id/myGoodsList"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:divider="@color/deep_grey"
+	        
+	        android:dividerHeight="0.3dip" >
+	    </ListView>
+
+	</LinearLayout>
+   
     
 </RelativeLayout>

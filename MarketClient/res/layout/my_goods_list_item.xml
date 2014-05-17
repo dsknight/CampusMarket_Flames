@@ -2,17 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/my_goods_items1"
     android:layout_width="fill_parent"
-    android:layout_height="80dip"
-    android:layout_below="@id/my_goods_topbar"
+    android:layout_height="fill_parent"
     android:layout_marginTop="10dip"
     android:layout_marginLeft="5dip"
-    android:layout_marginRight="5dip"
-    android:background="@drawable/shape_rectangle">
+    android:orientation="horizontal"
+    android:layout_marginRight="5dip">
     <LinearLayout 
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@drawable/comm_shakebg_selected"
-        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="80dip"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 		<ImageView
@@ -29,6 +26,7 @@
 				android:layout_marginLeft="5dp"
 				android:orientation="vertical">
 				<TextView
+				    android:id="@+id/my_goods_name"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:singleLine="true"
@@ -36,14 +34,23 @@
 				    android:textColor="@color/black"
 				    android:textSize="18sp" />
 				<TextView
-				    android:layout_width="wrap_content"
+				    android:id="@+id/my_goods_description"
+				    android:layout_width="196dp"
 				    android:layout_height="wrap_content"
 				    android:layout_marginTop="4dip"
 				    android:singleLine="true"
-					android:text="here is description ... blablablablablablablablablablablabla"
-					android:textSize="12sp" 
-					android:textColor="#999999" />
+				    android:text="here is description ... blablablablablablablablablablablabla"
+				    android:textColor="#999999"
+				    android:textSize="12sp" />
 			</LinearLayout>      
   	</LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8.0dip"
+        android:layout_marginTop="25dip"
+        android:src="@drawable/mm_submenu" />
+
 </LinearLayout>
 

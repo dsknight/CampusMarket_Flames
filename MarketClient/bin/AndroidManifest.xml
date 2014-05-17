@@ -7,8 +7,9 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="18" />
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    
+
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
 
     <application
         android:name="com.example.market.MainApplication"
@@ -25,16 +26,42 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignupActivity" android:label="@string/button_signup"></activity>
-        <activity android:name=".GoodsListActivity"></activity>
-        <activity android:name=".MainPageActivity"></activity>
-        <activity android:name=".GoodsActivity"></activity>
-        <activity android:name=".HomeActivity"></activity>
-        <activity android:name=".AllGoodsActivity"></activity>
-        <activity android:name=".CategoryActivity"></activity>
-        <activity android:name=".PersonalActivity"></activity>
-        <activity android:name=".AlterUsrInfoActivity"></activity>
-        <activity android:name=".AlterUsrNeedActivity"></activity>
+        <activity
+            android:name="com.example.market.SignupActivity"
+            android:label="@string/button_signup" >
+        </activity>
+        <activity android:name="com.example.market.GoodsListActivity" >
+        </activity>
+        <activity android:name="com.example.market.MainPageActivity" >
+        </activity>
+        <activity android:name="com.example.market.GoodsInfoActivity" >
+        </activity>
+        <activity android:name="com.example.market.HomeActivity" >
+        </activity>
+        <activity android:name="com.example.market.AllGoodsActivity" >
+        </activity>
+        <activity android:name="com.example.market.CategoryActivity" >
+        </activity>
+        <activity android:name="com.example.market.PersonalActivity" >
+        </activity>
+        <activity android:name="com.example.market.AlterUsrInfoActivity" >
+        </activity>
+        <activity android:name="com.example.market.MyNeedActivity" >
+        </activity>
+        <activity android:name="com.example.market.XListViewActivity" >
+        </activity>
+        <activity
+            android:name="com.example.market.MyGoodsActivity"
+            android:label="@string/title_activity_my_goods" >
+        </activity>
+        <activity
+            android:name="com.example.market.AddGoodsActivity"
+            android:label="@string/title_activity_add_goods" >
+        </activity>
+        <activity
+            android:name="com.example.market.MyGoodsInfoActivity"
+            android:label="@string/title_activity_my_goods_info" >
+        </activity>
     </application>
 
 </manifest>
