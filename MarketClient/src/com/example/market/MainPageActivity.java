@@ -26,9 +26,9 @@ public class MainPageActivity extends TabActivity  {
 	public void initTab(){
 		tabHost = getTabHost();
 		tabHost.addTab(tabHost.newTabSpec("home").setIndicator("home")
-				.setContent(new Intent(this, HomeActivity.class)));
+				.setContent(new Intent(this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
 		tabHost.addTab(tabHost.newTabSpec("car").setIndicator("car")
-				.setContent(new Intent(this, AllGoodsActivity.class)));
+				.setContent(new Intent(this, AllGoodsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
 		tabHost.addTab(tabHost.newTabSpec("category").setIndicator("category")
 				.setContent(new Intent(this, CategoryActivity.class)));
 		tabHost.addTab(tabHost.newTabSpec("personal").setIndicator("personal")

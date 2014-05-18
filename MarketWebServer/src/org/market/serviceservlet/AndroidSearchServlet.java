@@ -62,7 +62,7 @@ public class AndroidSearchServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		System.out.println("*** AndroidSearchServlet ***");
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();

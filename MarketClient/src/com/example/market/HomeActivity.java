@@ -2,7 +2,9 @@ package com.example.market;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,12 +13,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 
+import com.market.tools.CommonMethods;
 import com.market.util.HttpUtil;
 
 @SuppressLint("HandlerLeak")
@@ -30,49 +37,246 @@ public class HomeActivity  extends Activity  {
     private String url,msg;
     private String[] mStrings = new String[1];
     private Handler handler;
+    private MyAdapter new_adapter; 
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_home);
-		MainApplication appState = (MainApplication)getApplicationContext();
-		String[] suggests = appState.getSuggest().split("\\*");
-		((TextView)findViewById(R.id.suggest1)).setText(suggests[0]);
-		((TextView)findViewById(R.id.suggest2)).setText(suggests[1]);
-		((TextView)findViewById(R.id.suggest3)).setText(suggests[2]);
-		
-		home_suggest1 = (View)findViewById(R.id.home_suggest1);
-		home_suggest1.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
-				startActivity(intent);
-			}
-		});
-		home_suggest2 = (View)findViewById(R.id.home_suggest2);
-		home_suggest2.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
-				startActivity(intent);
-			}
-		});
-		home_suggest3 = (View)findViewById(R.id.home_suggest3);
-		home_suggest3.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
-				startActivity(intent);
-			}
-		});
-		
+
 		mStrings[0] = "Welcome";
-		final MyAdapter new_adapter = new MyAdapter(this);
+		new_adapter = new MyAdapter(this);
 		lv = (ListView)findViewById(R.id.lvForSearch);
 		lv.setAdapter(new_adapter);
 		//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,mStrings);
         //lv.setAdapter(adapter);
         //lv.setTextFilterEnabled(true);
+		lv.setItemsCanFocus(true);
+		lv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Toast.makeText(getApplicationContext(),"choose "+ arg2+" goods",Toast.LENGTH_SHORT).show();
+				if(mStrings[arg2].split(" ").length == 1){
+					return;
+				}
+            	String goodsID = mStrings[arg2].split(" ")[0];
+            	String result = null;
+				try {
+					result = CommonMethods.queryForGoodsInfo(goodsID);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(result.equals("#"))
+					showDialog("该商品可能下架了，请尝试刷新~");
+				else if(result.equals(""))
+					showDialog("网络异常，请稍后再试");
+				else{	
+					Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
+					intent.putExtra("result", result);
+					startActivity(intent);
+				}
+				
+			}
+			
+		});
+		
+		MainApplication appState = (MainApplication)getApplicationContext();
+		final String[] suggests = appState.getSuggest().split("\\*");
+		//显示推荐信息
+		if(suggests.length == 1 && suggests[0].equals("")){
+			((TextView)findViewById(R.id.suggest1)).setText("尚未找到与您需求相关的物品~");
+			((TextView)findViewById(R.id.suggest2)).setVisibility(View.GONE);
+			((TextView)findViewById(R.id.suggest3)).setVisibility(View.GONE);
+			((ImageView)findViewById(R.id.home_line3)).setVisibility(View.GONE);
+			((ImageView)findViewById(R.id.home_line2)).setVisibility(View.GONE);
+		}
+		else if(suggests.length == 1){
+			((TextView)findViewById(R.id.suggest1)).setText(suggests[0].substring(suggests[0].indexOf(' ')));
+			((TextView)findViewById(R.id.suggest2)).setVisibility(View.GONE);
+			((TextView)findViewById(R.id.suggest3)).setVisibility(View.GONE);
+			((ImageView)findViewById(R.id.home_line3)).setVisibility(View.GONE);
+			((ImageView)findViewById(R.id.home_line2)).setVisibility(View.GONE);
+			
+			home_suggest1 = (View)findViewById(R.id.home_suggest1);
+			home_suggest1.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					String goodsID = suggests[0].split(" ")[0];
+	            	String result = null;
+					try {
+						result = CommonMethods.queryForGoodsInfo(goodsID);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(result.equals("#"))
+						showDialog("该商品可能下架了，请尝试刷新~");
+					else if(result.equals(""))
+						showDialog("网络异常，请稍后再试");
+					else{	
+						Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
+						intent.putExtra("result", result);
+						startActivity(intent);
+					}
+				}
+			});
+		}
+		else if(suggests.length == 2){
+			((TextView)findViewById(R.id.suggest1)).setText(suggests[0].substring(suggests[0].indexOf(' ')));
+			((TextView)findViewById(R.id.suggest2)).setText(suggests[1].substring(suggests[0].indexOf(' ')));
+			((TextView)findViewById(R.id.suggest3)).setVisibility(View.GONE);
+			((ImageView)findViewById(R.id.home_line2)).setVisibility(View.GONE);
+			home_suggest1 = (View)findViewById(R.id.home_suggest1);
+			home_suggest1.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					String goodsID = suggests[0].split(" ")[0];
+	            	String result = null;
+					try {
+						result = CommonMethods.queryForGoodsInfo(goodsID);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(result.equals("#"))
+						showDialog("该商品可能下架了，请尝试刷新~");
+					else if(result.equals(""))
+						showDialog("网络异常，请稍后再试");
+					else{	
+						Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
+						intent.putExtra("result", result);
+						startActivity(intent);
+					}
+				}
+			});
+			home_suggest2 = (View)findViewById(R.id.home_suggest2);
+			home_suggest2.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					String goodsID = suggests[1].split(" ")[0];
+	            	String result = null;
+					try {
+						result = CommonMethods.queryForGoodsInfo(goodsID);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(result.equals("#"))
+						showDialog("该商品可能下架了，请尝试刷新~");
+					else if(result.equals(""))
+						showDialog("网络异常，请稍后再试");
+					else{	
+						Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
+						intent.putExtra("result", result);
+						startActivity(intent);
+					}
+				}
+			});
+		}
+		else{
+			((TextView)findViewById(R.id.suggest1)).setText(suggests[0].substring(suggests[0].indexOf(' ')));
+			((TextView)findViewById(R.id.suggest2)).setText(suggests[1].substring(suggests[0].indexOf(' ')));
+			((TextView)findViewById(R.id.suggest3)).setText(suggests[2].substring(suggests[0].indexOf(' ')));
+			home_suggest1 = (View)findViewById(R.id.home_suggest1);
+			home_suggest1.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					String goodsID = suggests[0].split(" ")[0];
+	            	String result = null;
+					try {
+						result = CommonMethods.queryForGoodsInfo(goodsID);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(result.equals("#"))
+						showDialog("该商品可能下架了，请尝试刷新~");
+					else if(result.equals(""))
+						showDialog("网络异常，请稍后再试");
+					else{	
+						Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
+						intent.putExtra("result", result);
+						startActivity(intent);
+					}
+				}
+			});
+			home_suggest2 = (View)findViewById(R.id.home_suggest2);
+			home_suggest2.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					String goodsID = suggests[1].split(" ")[0];
+	            	String result = null;
+					try {
+						result = CommonMethods.queryForGoodsInfo(goodsID);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(result.equals("#"))
+						showDialog("该商品可能下架了，请尝试刷新~");
+					else if(result.equals(""))
+						showDialog("网络异常，请稍后再试");
+					else{	
+						Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
+						intent.putExtra("result", result);
+						startActivity(intent);
+					}
+				}
+			});
+			home_suggest3 = (View)findViewById(R.id.home_suggest3);
+			home_suggest3.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					String goodsID = suggests[2].split(" ")[0];
+	            	String result = null;
+					try {
+						result = CommonMethods.queryForGoodsInfo(goodsID);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(result.equals("#"))
+						showDialog("该商品可能下架了，请尝试刷新~");
+					else if(result.equals(""))
+						showDialog("网络异常，请稍后再试");
+					else{	
+						Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
+						intent.putExtra("result", result);
+						startActivity(intent);
+					}
+				}
+			});
+		}
+		
+		
+		/*lv.setOnItemClickListener(new OnItemClickListener() {  	  
+            @Override  
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,  
+                    long arg3) {  
+            	Toast.makeText(getApplicationContext(),"choose "+ arg2+" goods",Toast.LENGTH_SHORT).show();
+            	String goodsID = mStrings[arg2].split(" ")[0];
+            	String result = null;
+				try {
+					result = CommonMethods.queryForGoodsInfo(goodsID);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(result.equals("#"))
+					showDialog("该商品可能下架了，请尝试刷新~");
+				else if(result.equals(""))
+					showDialog("网络异常，请稍后再试");
+				else{	
+					Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
+					intent.putExtra("result", result);
+					startActivity(intent);
+				}
+            }  
+        });*/
+		
         
 		handler = new Handler(){
 	    	public void handleMessage(Message msg){
@@ -176,10 +380,27 @@ public class HomeActivity  extends Activity  {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			convertView = mInflater.inflate(R.layout.home_list_item, null);
 			TextView text = (TextView)convertView.findViewById(R.id.list_suggest);
-			text.setText(mStrings[position]);
+			int tmp = mStrings[position].indexOf(' ');
+			if(tmp < 0)
+				text.setText(mStrings[position]);
+			else
+				text.setText(mStrings[position].substring(tmp+1));
 			return convertView;
 		}
 	}
+	
+	private void showDialog(String msg)
+	{
+		AlertDialog.Builder builder=new AlertDialog.Builder(this);
+		builder.setMessage(msg).setCancelable(false).setPositiveButton("确定",new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which) {			
+			}
+		});
+		AlertDialog alert=builder.create();
+		alert.show();
+	}
+	
 }
 
 

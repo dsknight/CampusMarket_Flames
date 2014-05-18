@@ -307,8 +307,7 @@ public class GoodsInfo {
 	
 	public boolean updateNeeds(GoodsType need){
 		boolean flag = false;
-		String usr = need.getName();
-		String sql = "UPDATE tb_goods SET GName=? AND GLexeme=? AND GDate=? WHERE GOwnerName=? AND Gproperty=1;";
+		String sql = "UPDATE tb_goods SET GName=?,GLexeme=?,GDate=? WHERE GOwnerName=? AND Gproperty=1;";
 		conn = ConnectMysql.connect();
 		PreparedStatement stmt = null;
 		try {
@@ -317,7 +316,7 @@ public class GoodsInfo {
 			stmt.setString(1, need.getName());
 			stmt.setString(2, need.getLexemeName());
 			stmt.setString(3, need.getDate());
-			stmt.setString(4, usr);
+			stmt.setString(4, need.getOwner());
 			if(stmt.executeUpdate() > 0)
 				flag = true;
 		} catch (SQLException e) {
@@ -334,6 +333,7 @@ public class GoodsInfo {
 	
 	public GoodsType findGoods(int GNO){
 		GoodsType temp = new GoodsType();
+		int flag = 0;
 		String sql = "SELECT * FROM tb_goods WHERE GNO = ?";
 		conn = ConnectMysql.connect();
 		PreparedStatement stmt = null;
@@ -344,6 +344,7 @@ public class GoodsInfo {
 			stmt.setInt(1, GNO);
 			rs = stmt.executeQuery();
 			while(rs.next()){
+				flag = 1;
 				int i = 1;
 				temp.setGNO(rs.getInt(i++));
 				temp.setName(rs.getString(i++));
@@ -369,18 +370,22 @@ public class GoodsInfo {
 			}
 			e.printStackTrace();
 		}
-		return temp;
+		if(flag == 1)
+			return temp;
+		else
+			return null;
 	}
 	
 	public String searchGoods(String key) throws IOException{
 		if(key == null)
-			return "*no1*no2*no3";
+			return "*";
 		
 		//首先对关键字分词
 		String modifiedKey = Segmentation.IKAnalyze(key);
 		
 		//查询
 		String result = "";
+		int flag = 0;
 		int numOfResult = 0;
 		String sql = "SELECT GNO,GName FROM tb_goods WHERE MATCH(GLexeme) AGAINST(? WITH QUERY EXPANSION) AND Gproperty=0;";
 		conn = ConnectMysql.connect();
@@ -393,6 +398,7 @@ public class GoodsInfo {
 			rs = stmt.executeQuery();
 			
 			while(rs.next()){
+				flag = 1;
 				numOfResult++;
 				result += "*" + rs.getInt(1) + " " + rs.getString(2);
 			}
@@ -409,6 +415,9 @@ public class GoodsInfo {
 			}
 			e.printStackTrace();
 		} 
-		return result;
+		if(flag == 1)
+			return result;
+		else
+			return "*";
 	}
 }

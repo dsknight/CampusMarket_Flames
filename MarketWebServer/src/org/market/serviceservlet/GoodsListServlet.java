@@ -62,12 +62,13 @@ public class GoodsListServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		System.out.println("*** GoodsListServlet ***");
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		int type = Integer.parseInt(request.getParameter("type"));
 		int startID = Integer.parseInt(request.getParameter("startID"));//作为已显示的最后一个ID，本次返回之后的ID
+		System.out.println("type = " + type + " startID = " + startID);
 		if(type < 1 || type > 7)
 			System.out.println("Wrong type of list, type = " + type);
 		else{
@@ -75,13 +76,16 @@ public class GoodsListServlet extends HttpServlet {
 			ArrayList<GoodsType> goodsList = goodsInfo.certainGoods(type, 0);
 			int count = 0;
 			for(GoodsType tmpGoods : goodsList){
-				if(tmpGoods.getGNO() != startID && count == 0)
+				if((startID != 0 && tmpGoods.getGNO() != startID && count == 0))
 					continue;
+				else if(tmpGoods.getGNO() == startID)
+					count ++;
 				else{
 					out.print(tmpGoods);
+					System.out.println(tmpGoods.toString());
 					count ++;
 				}
-				if(count >= 20)
+				if(count >= 6)
 					break;
 			}
 		}

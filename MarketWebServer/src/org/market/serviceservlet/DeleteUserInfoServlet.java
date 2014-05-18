@@ -59,7 +59,7 @@ public class DeleteUserInfoServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		System.out.println("*** DeleteUserInfoServlet ***");
 		response.setContentType("text/html");
 		//PrintWriter out = response.getWriter();
 		String usr = request.getParameter("input");

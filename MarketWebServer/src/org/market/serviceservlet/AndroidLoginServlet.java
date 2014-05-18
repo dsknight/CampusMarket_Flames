@@ -63,7 +63,7 @@ public class AndroidLoginServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("***************************");
+		System.out.println("*** AndroidLoginServlet ***");
 
 		response.setContentType("text/html;charset=utf-8");
 		response.setCharacterEncoding("UTF-8");
@@ -79,10 +79,14 @@ public class AndroidLoginServlet extends HttpServlet {
 		if(serveAndroid.login(androidClient)){
 			System.out.println("Start serving Android...");
 			ClientType respClient = serveAndroid.viewIndividualInfo(usr);
-			System.out.println(usr+" needs " + gInfo.needGoods(usr));
+			String need = gInfo.needGoods(usr);
+			System.out.println(usr+" needs " + need);
+			//返回个人信息
 			out.print(respClient.toString());
 			//返回推荐信息
-			out.print(gInfo.searchGoods((gInfo.needGoods(usr))));
+			out.print(gInfo.searchGoods(need));
+			//返回需求
+			out.print("!*C" + need);
 			System.out.println("Succeed!!!!!!");
 		}else{
 			System.out.println("Android Search: no such guy");

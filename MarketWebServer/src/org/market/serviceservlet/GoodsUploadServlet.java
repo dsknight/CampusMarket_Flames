@@ -63,42 +63,53 @@ public class GoodsUploadServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		System.out.println("*** GoodsUploadServlet ***");
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		boolean flag = false;//用来标记最终是否成功
+		String strUTF8;//用来转换字符
 		//填入新物品的信息并且写入数据库
 		GoodsType currGoods = new GoodsType();
 		int property = Integer.parseInt(request.getParameter("goodsProperty"));
 		currGoods.setProperty(property);
-		currGoods.setName(request.getParameter("goodsName"));
+		strUTF8 = new String(request.getParameter("goodsName").getBytes("8859_1"),"utf-8");
+		currGoods.setName(strUTF8);
 		currGoods.setLexemeName(Segmentation.IKAnalyze(currGoods.getName()));
 		currGoods.setOwner(request.getParameter("goodsOwner"));
 		currGoods.setDate(String.valueOf(new Date()));
 		if(property == 0){//上传的是真实物品而不是需求
+			System.out.println("upload goods");
 			currGoods.setPrice(Integer.parseInt(request.getParameter("goodsPrice")));
 			currGoods.setImage(request.getParameter("goodsImage"));
 			currGoods.setMainClass(Integer.parseInt(request.getParameter("goodsClass")));
 			currGoods.setSubClass(0);
-			currGoods.setIntroduction(request.getParameter("goodsIntroduction"));
+			strUTF8 = new String(request.getParameter("goodsIntroduction").getBytes("8859_1"),"utf-8");
+			currGoods.setIntroduction(strUTF8);
 			if(new GoodsInfo().addGoods(currGoods))
 				flag = true;
 		}
 		else{
 			GoodsInfo goodsInfo = new GoodsInfo();
+			System.out.println("add/update needs,needs = " + currGoods.getName() + " property = " + property);
 			if(goodsInfo.needGoods(currGoods.getOwner()) == null){//如果原先没有，就增加需求
-				if(goodsInfo.addGoods(currGoods))
+				System.out.println("try to add needs");
+				if(goodsInfo.addGoods(currGoods)){
+					System.out.println("add needs successfully");
 					flag = true;
+				}
 			}
 			else{
-				if(goodsInfo.updateNeeds(currGoods))//如果原先有，就更改需求
+				System.out.println("try to update needs");
+				if(goodsInfo.updateNeeds(currGoods)){//如果原先有，就更改需求
+					System.out.println("add needs successfully");
 					flag = true;
+				}
 			}
 		}
 		
 		if(flag)
-			out.print("*");
+			out.print(new GoodsInfo().searchGoods(currGoods.getName()));
 		else
 			out.print("#");
 		out.flush();

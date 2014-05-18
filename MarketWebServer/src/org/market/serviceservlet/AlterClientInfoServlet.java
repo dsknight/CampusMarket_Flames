@@ -1,6 +1,7 @@
 package org.market.serviceservlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.market.controlmysql.ClientInfo;
 import org.market.types.ClientType;
 
-public class ModifyUserInfoServlet extends HttpServlet {
+public class AlterClientInfoServlet extends HttpServlet {
 
 	/**
 	 * 
@@ -20,7 +21,7 @@ public class ModifyUserInfoServlet extends HttpServlet {
 	/**
 	 * Constructor of the object.
 	 */
-	public ModifyUserInfoServlet() {
+	public AlterClientInfoServlet() {
 		super();
 	}
 
@@ -44,7 +45,8 @@ public class ModifyUserInfoServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doPost(request,response);
+
+		doPost(request, response);
 	}
 
 	/**
@@ -59,25 +61,25 @@ public class ModifyUserInfoServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("*** ModifyUserInfoServlet ***");
-		//System.out.println("Start Modifying User Infomation...");
-		response.setContentType("text/html");
-		//PrintWriter out = response.getWriter();
-		String usr = request.getParameter("usr");
-		String pwd = request.getParameter("password");
-		String stuNO = request.getParameter("stuNO");
-		int sex = Integer.parseInt(request.getParameter("sex"));
+		System.out.println("*** AlterClientInfoServlet ***");
+		response.setContentType("text/html;charset=utf-8");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+		String userName = request.getParameter("userName");
+		String pwd = request.getParameter("pwd");
 		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");
-		String date = request.getParameter("date");
-		System.out.println("usr:"+usr+"\npassword:"+pwd+"\nStuNO:"+stuNO+"\nsex:"+sex+
-				"\nemail:"+email+"\nphone:"+phone+"\ndate:"+date);
-		ClientInfo modifyClient = new ClientInfo();
-		if(modifyClient.modifyClient(new ClientType(usr,pwd,sex,stuNO,phone,email,date))){
-			System.out.println("Modify User Infomation Successfully!!");
-		}else{
-			System.out.println("Modify User Infomation failed!!");
-		}
+		ClientInfo clientInfo = new ClientInfo();
+		ClientType currClient = clientInfo.viewIndividualInfo(userName);
+		currClient.setPassword(pwd);
+		currClient.setEmail(email);
+		currClient.setPhone(phone);
+		if(clientInfo.modifyClient(currClient))
+			out.print("*");
+		else
+			out.print("#");
+		out.flush();
+		out.close();
 	}
 
 	/**

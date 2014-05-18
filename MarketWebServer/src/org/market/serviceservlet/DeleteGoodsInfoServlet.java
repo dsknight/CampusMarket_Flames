@@ -59,7 +59,7 @@ public class DeleteGoodsInfoServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		System.out.println("*** DeleteGoodsInfoServlet ***");
 		response.setContentType("text/html");
 		//PrintWriter out = response.getWriter();
 		String gno = request.getParameter("input");

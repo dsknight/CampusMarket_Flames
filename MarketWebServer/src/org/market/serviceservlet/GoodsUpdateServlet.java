@@ -61,7 +61,7 @@ public class GoodsUpdateServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		System.out.println("*** GoodsUpdateServlet ***");
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();

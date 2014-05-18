@@ -39,7 +39,7 @@ public class GoodsType {
 		this.name = items[1];
 		this.lexemeName = Segmentation.IKAnalyze(items[1]);
 		this.owner = items[2];
-		this.price = Integer.parseInt(items[3]);
+		this.price = Double.parseDouble(items[3]);
 		this.image = items[4];
 		this.introduction = items[5];
 		this.date = items[6];

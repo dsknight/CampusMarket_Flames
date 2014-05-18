@@ -9,6 +9,7 @@ import org.wltea.analyzer.core.Lexeme;
 public class Segmentation{
 	
 	public static String IKAnalyze(String key)throws IOException{
+		System.out.println("IKAnalyze " + key);
 		String keyAfterIKAalyze = "";
 		StringReader reader = new StringReader(key);
 		IKSegmenter ik = new IKSegmenter(reader, false);

@@ -1,15 +1,19 @@
 package com.example.market;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +23,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.market.tools.CommonMethods;
+import com.market.types.GoodsType;
 import com.market.util.XListView;
 import com.market.util.XListView.IXListViewListener;
 
@@ -29,7 +35,7 @@ public class AllGoodsActivity  extends Activity implements IXListViewListener{
 	private TextView topbar;
 	private Handler mHandler;
 	private int start = 0;
-	private static int refreshCnt = 0;
+	//private static int refreshCnt = 0;
 	private XAdapter xadapter;
 	
 	@Override
@@ -50,27 +56,65 @@ public class AllGoodsActivity  extends Activity implements IXListViewListener{
 		listView.setXListViewListener(this);
 		mHandler = new Handler();
 		
-		getListInfo();
+		try {
+			getListInfo();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//showList();
 		listView.setOnItemClickListener(new OnItemClickListener() {  	  
             @Override  
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,  
                     long arg3) {  
             	Toast.makeText(getApplicationContext(),"choose "+ arg2+" goods",Toast.LENGTH_SHORT).show();
-            	Intent intent=new Intent(AllGoodsActivity.this,GoodsInfoActivity.class);
-				startActivity(intent);
+            	String goodsID = listItem.get(arg2-1).get("GNO").toString();
+            	String result = null;
+				try {
+					result = CommonMethods.queryForGoodsInfo(goodsID);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(result.equals("#"))
+					showDialog("该商品可能下架了，请尝试刷新~");
+				else if(result.equals(""))
+					showDialog("网络异常，请稍后再试");
+				else{	
+					Intent intent=new Intent(AllGoodsActivity.this,GoodsInfoActivity.class);
+					intent.putExtra("result", result);
+					startActivity(intent);
+				}
             }  
         });
 		
 	}
 	
-	public void getListInfo(){
-		for(int i = 0;i < 12;i++){
-			HashMap<String,Object> map = new HashMap<String,Object>();
-			start++;
-			map.put("title", "商品列表--商品"+start);
-			map.put("seller", "HelloKitty");
-			listItem.add(map);
+	public void getListInfo() throws InterruptedException, IOException{
+		String result = CommonMethods.queryForGoodsList(1, 0);
+		if(result.equals("#"))
+			showDialog("网络异常，请稍后再试");
+		else{
+			String[] gStrings = result.split("!\\*G");
+			for(int i = 0; i < gStrings.length; i++){
+				System.out.println(gStrings[i]);
+				GoodsType goods = new GoodsType(gStrings[i].substring(3));
+				HashMap<String,Object> map = new HashMap<String,Object>();
+				map.put("title", goods.getName());
+				map.put("seller", "提供者: " + goods.getOwner());
+				map.put("GNO", goods.getGNO());
+				listItem.add(map);
+				start = goods.getGNO();
+			}
+			/*if(gStrings.length < 20){
+				HashMap<String,Object> map = new HashMap<String,Object>();
+				map.put("title", "没有更多了...");
+				map.put("seller","");
+				listItem.add(map);
+			}*/
 		}
 	}	
 	/*
@@ -80,13 +124,28 @@ public class AllGoodsActivity  extends Activity implements IXListViewListener{
 				new int[]{R.id.catergoryitem_title,R.id.catergoryitem_seller});
 		 listView.setAdapter(listItemAdapter);	 
 	}*/
-	private void geneItems() {
-		for(int i = 0;i < 12;i++){
-			HashMap<String,Object> map = new HashMap<String,Object>();
-			map.put("title", "商品列表--商品"+i);
-			map.put("seller", "HelloKitty");
-			listItem.add(map);
+	private void geneItems() throws InterruptedException, IOException {
+		String result = CommonMethods.queryForGoodsList(1, start);
+		Log.i("gene", "start = " + start);
+		Log.i("geneItems", result);
+		if(result.equals("#"))
+			showDialog("网络异常，请稍后再试");
+		else{
+			if(!result.equals("")){
+				String[] gStrings = result.split("!\\*G");
+				for(int i = 0; i < gStrings.length; i++){
+					System.out.println(gStrings[i]);
+					GoodsType goods = new GoodsType(gStrings[i].substring(3));
+					HashMap<String,Object> map = new HashMap<String,Object>();
+					map.put("title", goods.getName());
+					map.put("seller", "提供者: " + goods.getOwner());
+					map.put("GNO", goods.getGNO());
+					listItem.add(map);
+					start = goods.getGNO();
+				}
+			}	
 		}
+		
 	}
 
 	@SuppressLint("SimpleDateFormat")
@@ -103,9 +162,17 @@ public class AllGoodsActivity  extends Activity implements IXListViewListener{
 		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				start = ++refreshCnt;
 				listItem = new ArrayList<HashMap<String,Object>>();
-				geneItems();
+				start = 0;
+				try {
+					geneItems();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				// mAdapter.notifyDataSetChanged();
 				xadapter.notifyDataSetChanged();
 				onLoad();
@@ -118,7 +185,15 @@ public class AllGoodsActivity  extends Activity implements IXListViewListener{
 		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				geneItems();
+				try {
+					geneItems();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				xadapter.notifyDataSetChanged();
 				onLoad();
 			}
@@ -154,5 +229,17 @@ public class AllGoodsActivity  extends Activity implements IXListViewListener{
 			text2.setText(listItem.get(position).get("seller").toString());
 			return convertView;
 		}
+	}
+	
+	private void showDialog(String msg)
+	{
+		AlertDialog.Builder builder=new AlertDialog.Builder(this);
+		builder.setMessage(msg).setCancelable(false).setPositiveButton("确定",new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which) {			
+			}
+		});
+		AlertDialog alert=builder.create();
+		alert.show();
 	}
 }

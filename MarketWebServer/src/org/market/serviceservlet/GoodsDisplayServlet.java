@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.market.controlmysql.ClientInfo;
 import org.market.controlmysql.GoodsInfo;
+import org.market.types.ClientType;
 import org.market.types.GoodsType;
 
 public class GoodsDisplayServlet extends HttpServlet {
@@ -61,14 +63,23 @@ public class GoodsDisplayServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		System.out.println("*** GoodsDisplayServlet ***");
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		int goodsID = Integer.parseInt(request.getParameter("goodsID"));
 		GoodsInfo goodsInfo = new GoodsInfo();
 		GoodsType currGoods = goodsInfo.findGoods(goodsID);
-		out.print(currGoods);
+		ClientType goodsOwner = new ClientInfo().viewIndividualInfo(currGoods.getOwner());
+		System.out.println(currGoods.toString());
+		System.out.println(goodsOwner.toString());
+		if(currGoods != null && goodsOwner != null){
+			System.out.println(currGoods.toString() + goodsOwner.toString());
+			out.print(currGoods);
+			out.print(goodsOwner);
+		}
+		else
+			out.print("#");
 		out.flush();
 		out.close();
 	}

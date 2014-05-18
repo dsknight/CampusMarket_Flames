@@ -1,7 +1,6 @@
 package com.example.market;
 
 import com.market.util.HttpUtil;
-import com.market.util.UserConfig;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -22,26 +21,32 @@ public class MyNeedActivity extends Activity{
 	private String url;
 	private String result;
 	
+	private MainApplication appState;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		appState = (MainApplication)getApplicationContext();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_need);
 		
 		myNeed = (EditText)findViewById(R.id.myneeds);
 		deliver = (Button)findViewById(R.id.deliverneeds);
 		
-		myNeed.setText(UserConfig.con_needs);
+		myNeed.setText(appState.getNeeds());
 		deliver.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if(validate()){
 					deliverNeed();
-					try {
-						Thread.sleep(1500);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					int i = 0;
+					while(if_deliver == 0 && i++ < 1000){
+						try {
+							Thread.sleep(1);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 					if(if_deliver == 0){
 						System.out.println("if_deliver == 0");
@@ -63,14 +68,18 @@ public class MyNeedActivity extends Activity{
 			showDialog("需求不能为空");
 			return false;
 		}
+		else if(need.contains("*")){
+			showDialog("‘*’为非法字符");
+			return false;
+		}
 		return true;
 	}
 	
 	private void deliverNeed(){
 		need = myNeed.getText().toString();
-		String usern = UserConfig.con_usr;
-		String queryString="username="+usern+"&need="+need;
-		url = HttpUtil.BASE_URL+"page/AndroidChangeNeedServlet?"+queryString;
+		String usern = appState.getClient().getName();
+		String queryString="goodsOwner="+usern+"&goodsName="+need+"&goodsProperty="+1;
+		url = HttpUtil.BASE_URL+"page/GoodsUploadServlet?"+queryString;
 		System.out.println(url);
 		
 		Runnable runnable = new Runnable(){
@@ -78,14 +87,15 @@ public class MyNeedActivity extends Activity{
 			public void run(){
 				System.out.println("Android starts to send need request\n");
 				result = HttpUtil.queryStringForPost(url);
-				if(result == null || result.equals("sorry")){
+				if(result.equals("#")){
 					System.out.println("set if_deliver to 0");
 					if_deliver = 0;
-				}else if(result.equals("success")){
+				}else{
 					System.out.println("set if_deliver to 1");
 					if_deliver = 1;
 					//TODO
-					UserConfig.con_needs = need;
+					appState.setNeeds(need);
+					appState.setSuggest(result.substring(1));
 				}
 			}
 		};

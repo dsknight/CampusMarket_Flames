@@ -9,6 +9,11 @@ public class FormatVerification {
 		Matcher matcher = pattern.matcher(a);
 		return matcher.matches();
 	}	
+	public static boolean verifyStar(String a){//检验输入格式
+		Pattern pattern = Pattern.compile("^.\\*.$");
+		Matcher matcher = pattern.matcher(a);
+		return matcher.matches();
+	}
 	public static boolean verifyMail(String a){//检验输入格式
 		Pattern pattern = Pattern.compile("^([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+$");
 		Matcher matcher = pattern.matcher(a);

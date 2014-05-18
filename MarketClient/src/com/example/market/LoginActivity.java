@@ -2,7 +2,6 @@ package com.example.market;
 
 import com.market.types.ClientType;
 import com.market.util.HttpUtil;
-import com.market.util.UserConfig;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -152,6 +151,8 @@ public class LoginActivity extends Activity{
 		MainApplication appState = ((MainApplication)getApplicationContext());
 		System.out.println(msg);
 		String[] msgs=msg.split("!\\*C");
+		//需求信息
+		appState.setNeeds(msgs[2]);
 		//推荐信息
 		appState.setSuggest(msgs[1].substring(1));
 		//用户信息

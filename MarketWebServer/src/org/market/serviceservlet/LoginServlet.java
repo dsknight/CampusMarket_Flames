@@ -60,6 +60,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("*** AdminLoginServlet ***");
 		response.setContentType("text/html");
 		String get = request.getParameter("input");
 		String[] temp = get.split("\\|");

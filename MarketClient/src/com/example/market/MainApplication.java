@@ -10,7 +10,7 @@ public class MainApplication extends Application{
 	
 	private ClientType client;
 	private List<GoodsType> goodsList;
-	private GoodsType needs;
+	private String needs;
 	private String suggest;
 	
 
@@ -19,12 +19,6 @@ public class MainApplication extends Application{
 	}
 	public void setGoodsList(List<GoodsType> goodsList) {
 		this.goodsList = goodsList;
-	}
-	public GoodsType getNeeds() {
-		return needs;
-	}
-	public void setNeeds(GoodsType needs) {
-		this.needs = needs;
 	}
 	public String getSuggest() {
 		return suggest;
@@ -37,6 +31,12 @@ public class MainApplication extends Application{
 	}
 	public void setClient(ClientType client) {
 		this.client = client;
+	}
+	public void setNeeds(String needs) {
+		this.needs = needs;
+	}
+	public String getNeeds() {
+		return needs;
 	}
 	
 	

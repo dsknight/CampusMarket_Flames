@@ -199,6 +199,7 @@ public class ClientInfo {
 	//view individual information by user name
 	public ClientType viewIndividualInfo(String usr){
 		ClientType client = new ClientType();
+		int flag = 0;
 		String sql = "SELECT * FROM tb_customer WHERE CID = ?";
 		conn = ConnectMysql.connect();
 		PreparedStatement stmt = null;
@@ -209,6 +210,7 @@ public class ClientInfo {
 			stmt.setString(1, usr);
 			rs = stmt.executeQuery();
 			if(rs.next()){
+				flag = 1;
 				int CNO = rs.getInt(1);
 				System.out.println("Find the customer NO:"+CNO);
 				client.setCNO(CNO);
@@ -234,7 +236,10 @@ public class ClientInfo {
 			}
 			e.printStackTrace();
 		}
-		return client;
+		if(flag == 1)
+			return client;
+		else
+			return null;
 	}
 
 	//all client information

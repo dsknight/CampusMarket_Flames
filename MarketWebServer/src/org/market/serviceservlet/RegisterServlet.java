@@ -62,7 +62,7 @@ public class RegisterServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		System.out.println("*** RegisterServletServlet ***");
 		response.setContentType("text/html");
 		String usr = request.getParameter("usr");
 		String pwd = request.getParameter("password");
