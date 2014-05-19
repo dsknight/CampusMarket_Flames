@@ -39,11 +39,13 @@ public class HomeActivity  extends Activity  {
     private Handler handler;
     private MyAdapter new_adapter; 
     
+    private MainApplication appState;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_home);
-
+		appState = ((MainApplication)getApplicationContext());
 		mStrings[0] = "Welcome";
 		new_adapter = new MyAdapter(this);
 		lv = (ListView)findViewById(R.id.lvForSearch);
@@ -75,7 +77,7 @@ public class HomeActivity  extends Activity  {
 					showDialog("网络异常，请稍后再试");
 				else{	
 					Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
-					intent.putExtra("result", result);
+					appState.setDisplayInfo(result);
 					startActivity(intent);
 				}
 				
@@ -83,7 +85,6 @@ public class HomeActivity  extends Activity  {
 			
 		});
 		
-		MainApplication appState = (MainApplication)getApplicationContext();
 		final String[] suggests = appState.getSuggest().split("\\*");
 		//显示推荐信息
 		if(suggests.length == 1 && suggests[0].equals("")){
@@ -118,7 +119,7 @@ public class HomeActivity  extends Activity  {
 						showDialog("网络异常，请稍后再试");
 					else{	
 						Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
-						intent.putExtra("result", result);
+						appState.setDisplayInfo(result);
 						startActivity(intent);
 					}
 				}
@@ -147,7 +148,7 @@ public class HomeActivity  extends Activity  {
 						showDialog("网络异常，请稍后再试");
 					else{	
 						Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
-						intent.putExtra("result", result);
+						appState.setDisplayInfo(result);
 						startActivity(intent);
 					}
 				}
@@ -170,7 +171,7 @@ public class HomeActivity  extends Activity  {
 						showDialog("网络异常，请稍后再试");
 					else{	
 						Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
-						intent.putExtra("result", result);
+						appState.setDisplayInfo(result);
 						startActivity(intent);
 					}
 				}
@@ -198,7 +199,7 @@ public class HomeActivity  extends Activity  {
 						showDialog("网络异常，请稍后再试");
 					else{	
 						Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
-						intent.putExtra("result", result);
+						appState.setDisplayInfo(result);
 						startActivity(intent);
 					}
 				}
@@ -221,7 +222,7 @@ public class HomeActivity  extends Activity  {
 						showDialog("网络异常，请稍后再试");
 					else{	
 						Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
-						intent.putExtra("result", result);
+						appState.setDisplayInfo(result);
 						startActivity(intent);
 					}
 				}
@@ -244,7 +245,7 @@ public class HomeActivity  extends Activity  {
 						showDialog("网络异常，请稍后再试");
 					else{	
 						Intent intent=new Intent(HomeActivity.this,GoodsInfoActivity.class);
-						intent.putExtra("result", result);
+						appState.setDisplayInfo(result);
 						startActivity(intent);
 					}
 				}
