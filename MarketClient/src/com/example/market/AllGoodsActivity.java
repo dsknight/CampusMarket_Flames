@@ -79,6 +79,7 @@ public class AllGoodsActivity  extends Activity implements IXListViewListener{
             	String result = null;
 				try {
 					result = CommonMethods.queryForGoodsInfo(goodsID);
+					((MainApplication)getApplicationContext()).setDisplayInfo(result);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -89,11 +90,10 @@ public class AllGoodsActivity  extends Activity implements IXListViewListener{
 					else
 						showDialog("饿，还没有该分类的商品，尽请期待~");
 				}
-				else if(result.equals(""))
+				else if(result.equals("!"))
 					showDialog("网络异常，请稍后再试");
 				else{	
 					Intent intent=new Intent(AllGoodsActivity.this,GoodsInfoActivity.class);
-					intent.putExtra("result", result);
 					startActivity(intent);
 				}
             }  
@@ -102,9 +102,11 @@ public class AllGoodsActivity  extends Activity implements IXListViewListener{
 	}
 	
 	public void getListInfo() throws InterruptedException, IOException{
-		String result = CommonMethods.queryForGoodsList(type, 0);
-		if(result.equals("#"))
+		String result = CommonMethods.queryForGoodsList(type, 0+"");
+		if(result.equals("!"))
 			showDialog("网络异常，请稍后再试");
+		else if(result.equals("#"))
+			showDialog("出了点小问题...");
 		else{
 			String[] gStrings = result.split("!\\*G");
 			for(int i = 0; i < gStrings.length; i++){
@@ -133,11 +135,11 @@ public class AllGoodsActivity  extends Activity implements IXListViewListener{
 		 listView.setAdapter(listItemAdapter);	 
 	}*/
 	private void geneItems() throws InterruptedException, IOException {
-		String result = CommonMethods.queryForGoodsList(type, start);
-		Log.i("gene", "start = " + start);
-		Log.i("geneItems", result);
-		if(result.equals("#"))
+		String result = CommonMethods.queryForGoodsList(type, start+"");
+		if(result.equals("!"))
 			showDialog("网络异常，请稍后再试");
+		else if(result.equals("#"))
+			showDialog("没有更多了~");
 		else{
 			if(!result.equals("")){
 				String[] gStrings = result.split("!\\*G");

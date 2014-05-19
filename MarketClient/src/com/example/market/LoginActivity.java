@@ -158,6 +158,12 @@ public class LoginActivity extends Activity{
 		//用户信息
 		System.out.println(msgs[0]);
 		appState.setClient(new ClientType(msgs[0].substring(3)));
+		//初始化其他信息
+		appState.setDisplayInfo("");
+		appState.setGoodsList(null);
+		//初始化所有类的静态变量
+		MyGoodsActivity.setFirstTime(true);
+		
 		
 		//Save User Information to Local [static] Configure file
 		/*UserConfig.id = Integer.parseInt(msgs[0]);

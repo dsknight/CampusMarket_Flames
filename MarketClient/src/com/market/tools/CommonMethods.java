@@ -22,12 +22,11 @@ public class CommonMethods {
 
 	private static String goodsUploadResult;
 	private static int goodsUploadFlag;
-	
-	
-	public static String queryForGoodsList(int type, int startID)
+
+	public static String queryForGoodsList(int type, String startID_Owner)
 			throws InterruptedException {
 		goodsListFlag = 0;
-		String queryString = "type=" + type + "&startID=" + startID;
+		String queryString = "type=" + type + "&startID_Owner=" + startID_Owner;
 		final String url = HttpUtil.BASE_URL + "page/GoodsListServlet?"
 				+ queryString;
 		System.out.println(url);
@@ -49,11 +48,14 @@ public class CommonMethods {
 		thread_getgood.setPriority(1);
 		thread_getgood.start();
 		int i = 0;
-		while (goodsListFlag == 0 && i++ < 1000)
+		while (goodsListFlag == 0 && i++ < 5000)
 			Thread.sleep(1);
 		if (goodsListFlag == 0)
+			return "!";
+		else if (goodsListFlag == -1)
 			return "#";
-		return goodsListResult;
+		else
+			return goodsListResult;
 	}
 
 	public static String queryForGoodsInfo(String goodsID)
@@ -80,16 +82,17 @@ public class CommonMethods {
 		thread_getgood.setPriority(1);
 		thread_getgood.start();
 		int i = 0;
-		while (goodsInfoFlag == 0 && i++ < 1000)
+		while (goodsInfoFlag == 0 && i++ < 5000)
 			Thread.sleep(1);
 		if (goodsInfoFlag == 0)
-			return "";
-		else if(goodsInfoFlag == -1)
+			return "!";
+		else if (goodsInfoFlag == -1)
 			return "#";
 		return goodsInfoResult;
 	}
-	
-	public static boolean queryForGoodsUpload(final Map<String, String> param) throws InterruptedException{
+
+	public static boolean queryForGoodsUpload(final Map<String, String> param)
+			throws InterruptedException {
 		goodsUploadFlag = 0;
 		final String url = HttpUtil.BASE_URL + "page/GoodsUploadServlet";
 		Runnable runnable = new Runnable() {
@@ -97,12 +100,13 @@ public class CommonMethods {
 			public void run() {
 				System.out.println("Android starts to send upload request\n");
 				try {
-					goodsUploadResult = HttpUtil.sendHttpClientPostRequest(url, param, "UTF-8");
+					goodsUploadResult = HttpUtil.sendHttpClientPostRequest(url,
+							param, "UTF-8");
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 				if (goodsUploadResult.equals("#")) {
 					System.out.println("set goodsUploadFlag to -1");
 					goodsUploadFlag = -1;
@@ -116,47 +120,51 @@ public class CommonMethods {
 		thread_getgood.setPriority(1);
 		thread_getgood.start();
 		int i = 0;
-		while (goodsUploadFlag == 0 && i++ < 3000)
+		while (goodsUploadFlag == 0 && i++ < 5000)
 			Thread.sleep(1);
 		if (goodsUploadFlag != 1)
 			return false;
 		return true;
-		
-	}
-	
-	public static boolean queryForGoodsUpload(String goodsName, String goodsOwner, String goodsPrice, String goodsImage, 
-			int goodsClass, String goodsIntroduction, int goodsProperty) throws InterruptedException{
-goodsUploadFlag = 0;
-final String url = HttpUtil.BASE_URL + "page/GoodsUploadServlet?goodsName=" + goodsName 
-	+ "&goodsOwner=" + goodsOwner + "&goodsPrice=" + goodsPrice + "&goodsImage=" + goodsImage 
-	+ "&goodsClass=" + goodsClass + "&goodsIntroduction=" + goodsIntroduction + "&goodsProperty=" + goodsProperty;
-Runnable runnable = new Runnable() {
-@Override
-public void run() {
-	System.out.println("Android starts to send upload request\n");
-	goodsUploadResult = HttpUtil.queryStringForPost(url);
-	
-	if (goodsUploadResult.equals("#")) {
-		System.out.println("set goodsUploadFlag to -1");
-		goodsUploadFlag = -1;
-	} else {
-		System.out.println("set goodsUploadFlag to 1");
-		goodsUploadFlag = 1;
-	}
-}
-};
-Thread thread_getgood = new Thread(runnable);
-thread_getgood.setPriority(1);
-thread_getgood.start();
-int i = 0;
-while (goodsUploadFlag == 0 && i++ < 1000)
-Thread.sleep(1);
-if (goodsUploadFlag != 1)
-return false;
-return true;
 
-}
-	
+	}
+
+	public static boolean queryForGoodsUpload(String goodsName,
+			String goodsOwner, String goodsPrice, String goodsImage,
+			int goodsClass, String goodsIntroduction, int goodsProperty)
+			throws InterruptedException {
+		goodsUploadFlag = 0;
+		final String url = HttpUtil.BASE_URL
+				+ "page/GoodsUploadServlet?goodsName=" + goodsName
+				+ "&goodsOwner=" + goodsOwner + "&goodsPrice=" + goodsPrice
+				+ "&goodsImage=" + goodsImage + "&goodsClass=" + goodsClass
+				+ "&goodsIntroduction=" + goodsIntroduction + "&goodsProperty="
+				+ goodsProperty;
+		Runnable runnable = new Runnable() {
+			@Override
+			public void run() {
+				System.out.println("Android starts to send upload request\n");
+				goodsUploadResult = HttpUtil.queryStringForPost(url);
+
+				if (goodsUploadResult.equals("#")) {
+					System.out.println("set goodsUploadFlag to -1");
+					goodsUploadFlag = -1;
+				} else {
+					System.out.println("set goodsUploadFlag to 1");
+					goodsUploadFlag = 1;
+				}
+			}
+		};
+		Thread thread_getgood = new Thread(runnable);
+		thread_getgood.setPriority(1);
+		thread_getgood.start();
+		int i = 0;
+		while (goodsUploadFlag == 0 && i++ < 1000)
+			Thread.sleep(1);
+		if (goodsUploadFlag != 1)
+			return false;
+		return true;
+
+	}
 
 	public static String BitMapToString(Bitmap bitmap) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -165,8 +173,6 @@ return true;
 		String temp = Base64.encodeToString(b, Base64.DEFAULT);
 		return temp;
 	}
-	
-	
 
 	public static Bitmap StringToBitMap(String encodedString) {
 		try {

@@ -67,11 +67,23 @@ public class GoodsListServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		int type = Integer.parseInt(request.getParameter("type"));
-		int startID = Integer.parseInt(request.getParameter("startID"));//作为已显示的最后一个ID，本次返回之后的ID
-		System.out.println("type = " + type + " startID = " + startID);
-		if(type < 1 || type > 7)
+		String startID_Owner = request.getParameter("startID_Owner");//作为已显示的最后一个ID，本次返回之后的ID
+																	 //或者这里是用户名，返回用户的所有物品
+		System.out.println("type = " + type + " startID_Owner = " + startID_Owner);
+		if(type < 1 || type > 9)
 			System.out.println("Wrong type of list, type = " + type);
-		else{
+		else if(type == 8){//查询某个用户的物品
+			GoodsInfo goodsInfo = new GoodsInfo();
+			ArrayList<GoodsType> goodsList = goodsInfo.certainGoods(startID_Owner);
+			if(goodsList != null){
+				for(GoodsType tmpGoods : goodsList)
+						out.print(tmpGoods);
+			}
+			else
+				out.print("#");
+		}
+		else{//查询某个种类的物品
+			int startID = Integer.parseInt(startID_Owner);
 			GoodsInfo goodsInfo = new GoodsInfo();
 			ArrayList<GoodsType> goodsList = goodsInfo.certainGoods(type, 0);
 			if(goodsList != null){
@@ -82,8 +94,8 @@ public class GoodsListServlet extends HttpServlet {
 					else if(tmpGoods.getGNO() == startID)
 						count ++;
 					else{
+						tmpGoods.setImage("");//暂时先不传图片，为了给用户减少不必要的流量
 						out.print(tmpGoods);
-						System.out.println(tmpGoods.toString());
 						count ++;
 					}
 					if(count >= 6)

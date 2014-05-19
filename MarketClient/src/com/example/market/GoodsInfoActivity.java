@@ -49,7 +49,7 @@ public class GoodsInfoActivity extends Activity{
 		if(intent != null){
 			GoodsType currGoods = null;
 			ClientType goodsOwner = null;
-			String[] str = intent.getStringExtra("result").split("!\\*G");
+			String[] str = ((MainApplication)getApplicationContext()).getDisplayInfo().split("!\\*G");
 			try {
 				currGoods = new GoodsType(str[0].substring(3));
 				goodsOwner = new ClientType(str[1].substring(3, str[1].length()-3));

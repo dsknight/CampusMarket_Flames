@@ -210,6 +210,7 @@ public class GoodsInfo {
 				GoodsType temp = new GoodsType();
 				temp.setGNO(rs.getInt(i++));
 				temp.setName(rs.getString(i++));
+				temp.setLexemeName(rs.getString(i++));
 				temp.setOwner(rs.getString(i++));
 				temp.setPrice(rs.getString(i++));
 				temp.setImage(rs.getString(i++));

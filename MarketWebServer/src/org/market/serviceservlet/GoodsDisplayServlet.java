@@ -71,10 +71,7 @@ public class GoodsDisplayServlet extends HttpServlet {
 		GoodsInfo goodsInfo = new GoodsInfo();
 		GoodsType currGoods = goodsInfo.findGoods(goodsID);
 		ClientType goodsOwner = new ClientInfo().viewIndividualInfo(currGoods.getOwner());
-		System.out.println(currGoods.toString());
-		System.out.println(goodsOwner.toString());
 		if(currGoods != null && goodsOwner != null){
-			System.out.println(currGoods.toString() + goodsOwner.toString());
 			out.print(currGoods);
 			out.print(goodsOwner);
 		}

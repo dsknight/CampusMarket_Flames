@@ -2,22 +2,23 @@ package com.example.market;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Application;
+
 import com.market.types.ClientType;
 import com.market.types.GoodsType;
-
-import android.app.Application;
 public class MainApplication extends Application{
 	
 	private ClientType client;
-	private List<GoodsType> goodsList;
+	private ArrayList<GoodsType> goodsList;
 	private String needs;
 	private String suggest;
+	private String displayInfo;
 	
 
-	public List<GoodsType> getGoodsList() {
+	public ArrayList<GoodsType> getGoodsList() {
 		return goodsList;
 	}
-	public void setGoodsList(List<GoodsType> goodsList) {
+	public void setGoodsList(ArrayList<GoodsType> goodsList) {
 		this.goodsList = goodsList;
 	}
 	public String getSuggest() {
@@ -37,6 +38,12 @@ public class MainApplication extends Application{
 	}
 	public String getNeeds() {
 		return needs;
+	}
+	public String getDisplayInfo() {
+		return displayInfo;
+	}
+	public void setDisplayInfo(String displayInfo) {
+		this.displayInfo = displayInfo;
 	}
 	
 	
