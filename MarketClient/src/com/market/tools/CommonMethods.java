@@ -58,6 +58,71 @@ public class CommonMethods {
 			return goodsListResult;
 	}
 
+	
+	public static boolean queryForDeletingGoods(int gno)
+			throws InterruptedException{
+
+		String queryString="input="+gno;
+		final String url = HttpUtil.BASE_URL+"page/DeleteGoodsInfoServlet?"+queryString;
+		goodsInfoFlag = 0;
+		Runnable runnable = new Runnable(){
+			@Override
+			public void run(){
+				System.out.println("Android starts to send DELETE request\n");
+				goodsInfoResult = HttpUtil.queryStringForPost(url);
+				if(goodsInfoResult.equals("sorry")){
+					goodsInfoFlag = 0;
+				}else{
+					goodsInfoFlag = 1;
+				}
+			}
+		};
+		Thread thread_getgood = new Thread(runnable);
+		thread_getgood.setPriority(1);
+		thread_getgood.start();
+		
+		int i = 0;
+		while (goodsInfoFlag == 0 && i++ < 1000)
+			Thread.sleep(1);
+		if (goodsInfoFlag == 0)
+			return false;
+		else
+			return true;
+	}
+	
+	
+	public static boolean queryForAlterGoodsInfo(int gno,String dsp,String price)
+			throws InterruptedException{
+	
+		String queryString="input="+gno+"&dsp="+dsp+"&price="+price;
+		final String url = HttpUtil.BASE_URL+"page/GoodsUpdateServlet?"+queryString;
+		goodsInfoFlag = 0;
+		Runnable runnable = new Runnable(){
+			@Override
+			public void run(){
+				System.out.println("Android starts to send UPDATE request\n");
+				goodsInfoResult = HttpUtil.queryStringForPost(url);
+				if(goodsInfoResult.equals("sorry")){
+					goodsInfoFlag = 0;
+				}else{
+					goodsInfoFlag = 1;
+				}
+			}
+		};
+		Thread thread_getgood = new Thread(runnable);
+		thread_getgood.setPriority(1);
+		thread_getgood.start();
+		
+		int i = 0;
+		while (goodsInfoFlag == 0 && i++ < 1000)
+			Thread.sleep(1);
+		if (goodsInfoFlag == 0)
+			return false;
+		else
+			return true;
+	}
+	
+	
 	public static String queryForGoodsInfo(String goodsID)
 			throws InterruptedException {
 		goodsInfoFlag = 0;
