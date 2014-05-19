@@ -80,7 +80,8 @@ public class GoodsUploadServlet extends HttpServlet {
 		currGoods.setDate(String.valueOf(new Date()));
 		if(property == 0){//上传的是真实物品而不是需求
 			System.out.println("upload goods");
-			currGoods.setPrice(Integer.parseInt(request.getParameter("goodsPrice")));
+			strUTF8 = new String(request.getParameter("goodsPrice").getBytes("8859_1"),"utf-8");
+			currGoods.setPrice(strUTF8);
 			currGoods.setImage(request.getParameter("goodsImage"));
 			currGoods.setMainClass(Integer.parseInt(request.getParameter("goodsClass")));
 			currGoods.setSubClass(0);

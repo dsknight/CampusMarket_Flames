@@ -9,7 +9,7 @@ public class GoodsType {
 	private String name;
 	private String lexemeName;//分词之后的结果
 	private String owner;
-	private double price;
+	private String price;
 	private String image;
 	private int mainClass;
 	private int subClass;
@@ -21,7 +21,7 @@ public class GoodsType {
 	public GoodsType(){
 		super();
 	}
-	public GoodsType(String name,String owner,double price,String image,
+	public GoodsType(String name,String owner,String price,String image,
 			int mainClass,int subClass,String introduction,String date){
 		this.name = name;
 		this.owner = owner;
@@ -38,7 +38,7 @@ public class GoodsType {
 		this.GNO = Integer.parseInt(items[0]);
 		this.name = items[1];
 		this.owner = items[2];
-		this.price = Double.parseDouble(items[3]);
+		this.price = items[3];
 		this.image = items[4];
 		this.introduction = items[5];
 		this.date = items[6];
@@ -67,10 +67,10 @@ public class GoodsType {
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
-	public double getPrice() {
+	public String getPrice() {
 		return price;
 	}
-	public void setPrice(double price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 	public String getImage() {

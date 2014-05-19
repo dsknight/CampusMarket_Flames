@@ -2,27 +2,18 @@ package org.market.serviceservlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.market.controlmysql.GoodsInfo;
-import org.market.types.GoodsType;
-
-public class GoodsListServlet extends HttpServlet {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class TestServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public GoodsListServlet() {
+	public TestServlet() {
 		super();
 	}
 
@@ -47,7 +38,13 @@ public class GoodsListServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		doPost(request, response);
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		System.out.println("********get");
+		System.out.println(request.getParameter("param"));
+		out.print("ok");
+		out.flush();
+		out.close();
 	}
 
 	/**
@@ -62,37 +59,13 @@ public class GoodsListServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("*** GoodsListServlet ***");
+
 		response.setContentType("text/html");
-		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-		int type = Integer.parseInt(request.getParameter("type"));
-		int startID = Integer.parseInt(request.getParameter("startID"));//作为已显示的最后一个ID，本次返回之后的ID
-		System.out.println("type = " + type + " startID = " + startID);
-		if(type < 1 || type > 7)
-			System.out.println("Wrong type of list, type = " + type);
-		else{
-			GoodsInfo goodsInfo = new GoodsInfo();
-			ArrayList<GoodsType> goodsList = goodsInfo.certainGoods(type, 0);
-			if(goodsList != null){
-				int count = 0;
-				for(GoodsType tmpGoods : goodsList){
-					if((startID != 0 && tmpGoods.getGNO() != startID && count == 0))
-						continue;
-					else if(tmpGoods.getGNO() == startID)
-						count ++;
-					else{
-						out.print(tmpGoods);
-						System.out.println(tmpGoods.toString());
-						count ++;
-					}
-					if(count >= 6)
-						break;
-				}
-			}
-			else
-				out.print("#");
-		}
+		System.out.println("********post");
+		String img = request.getParameter("param");
+		System.out.println(img);
+		out.print(img);
 		out.flush();
 		out.close();
 	}

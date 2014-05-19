@@ -1,18 +1,25 @@
 package com.market.util;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 
 public class HttpUtil {
 	//声明Base URL变量
-	public static final String BASE_URL="http://10.0.2.2:8080/Market/";
+	public static final String BASE_URL="http://192.168.2.108:8080/Market/";
 	//public static final String BASE_URL1="http://169.254.50.166:8080/Market/";
 	public static HttpGet getHttpGet(String url)
 	{
@@ -127,6 +134,29 @@ public class HttpUtil {
 		}
 		return null;
 	}
+	
+	public static String sendHttpClientPostRequest(String path, Map<String, String> params, String encoding) throws Exception{  
+		  String result;
+		  List<NameValuePair> param = new ArrayList<NameValuePair>();  
+		  if(params!=null && !params.isEmpty()){  
+			  for(Map.Entry<String, String> entry : params.entrySet()){  
+				  param.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));  
+			  }  
+		  }  
+		  UrlEncodedFormEntity entity = new UrlEncodedFormEntity(param, encoding);  
+		  HttpPost post = new HttpPost(path);  
+		//  HttpGet get = new HttpGet();  
+		  post.setEntity(entity);  
+		  DefaultHttpClient client = new DefaultHttpClient();  
+		  HttpResponse response = client.execute(post);
+		  result = EntityUtils.toString(response.getEntity(),HTTP.UTF_8);
+		  if(response.getStatusLine().getStatusCode() == 200){  
+		//   response.getEntity().getContent();//获取服务器返回的数据  
+			  return result;
+		  }  
+		  return null;
+		}  
+
 	
 	
 }

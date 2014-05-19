@@ -2,6 +2,10 @@ package com.example.market;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -28,7 +32,9 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.market.tools.CommonMethods;
 import com.market.types.FormatVerification;
+import com.market.types.GoodsType;
 
 public class AddGoodsActivity extends Activity {
 
@@ -78,9 +84,25 @@ public class AddGoodsActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				if(validate()){
-					//TODO send request
+					String goodsOwner = ((MainApplication)getApplicationContext()).getClient().getName();
+					Map<String, String> param = new HashMap<String, String>();
+					param.put("goodsName", goodsName);
+					param.put("goodsOwner", goodsOwner);
+					param.put("goodsPrice", goodsPrice);
+					param.put("goodsImage", goodsImage);
+					param.put("goodsClass", goodsType+"");
+					param.put("goodsIntroduction", goodsDsp);
+					param.put("goodsProperty", "0");
+					try {
+						if(CommonMethods.queryForGoodsUpload(param))
+							showDialog("上传成功！");
+						else
+							showDialog("有点小问题...请稍后再试~");
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}		
 				}
 			}
 		});
@@ -92,7 +114,7 @@ public class AddGoodsActivity extends Activity {
 		goodsDsp = g_dsp.getText().toString();
 		goodsPrice = g_price.getText().toString();
 		if(sendBmp != null)
-			goodsImage = sendBmp.toString();
+			goodsImage = CommonMethods.BitMapToString(sendBmp);
 		else
 			goodsImage = "null";
 		if(goodsName.equals("") || goodsDsp.equals("") || goodsPrice.equals("")){
@@ -251,9 +273,9 @@ public class AddGoodsActivity extends Activity {
 	    int h = newOpts.outHeight;  
 	  //现在主流手机比较多是800*480分辨率，所以高和宽我们设置为  
 	  //这里设置高度为800f  
-	    float hh = 800f;
+	    float hh = 600f;
 	  //这里设置宽度为480f 
-	    float ww = 480f; 
+	    float ww = 360f; 
 	  //缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可  
 	  //be=1表示不缩放  
 	    int be = 1;

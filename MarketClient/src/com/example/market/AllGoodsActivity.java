@@ -37,17 +37,21 @@ public class AllGoodsActivity  extends Activity implements IXListViewListener{
 	private int start = 0;
 	//private static int refreshCnt = 0;
 	private XAdapter xadapter;
+	private int type;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		type = 1;//用来表示列表的类型  1:全部  2-7:分类显示
 		setContentView(R.layout.main_all);
 		topbar = (TextView)findViewById(R.id.all_goods);
 		Intent intent = this.getIntent();
 		if(intent != null){
 			String msg = intent.getStringExtra("text");
-			if(msg != null)
-				topbar.setText(msg);
+			if(msg != null){
+				topbar.setText(msg.split(" ")[1]);
+				type = Integer.parseInt(msg.split(" ")[0]);
+			}
 		}
 		listView = (XListView)findViewById(R.id.all_goods_XListView);
 		listView.setPullLoadEnable(true);
@@ -79,8 +83,12 @@ public class AllGoodsActivity  extends Activity implements IXListViewListener{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				if(result.equals("#"))
-					showDialog("该商品可能下架了，请尝试刷新~");
+				if(result.equals("#")){
+					if(type == 1)
+						showDialog("该商品可能下架了，请尝试刷新~");
+					else
+						showDialog("饿，还没有该分类的商品，尽请期待~");
+				}
 				else if(result.equals(""))
 					showDialog("网络异常，请稍后再试");
 				else{	
@@ -94,7 +102,7 @@ public class AllGoodsActivity  extends Activity implements IXListViewListener{
 	}
 	
 	public void getListInfo() throws InterruptedException, IOException{
-		String result = CommonMethods.queryForGoodsList(1, 0);
+		String result = CommonMethods.queryForGoodsList(type, 0);
 		if(result.equals("#"))
 			showDialog("网络异常，请稍后再试");
 		else{
@@ -125,7 +133,7 @@ public class AllGoodsActivity  extends Activity implements IXListViewListener{
 		 listView.setAdapter(listItemAdapter);	 
 	}*/
 	private void geneItems() throws InterruptedException, IOException {
-		String result = CommonMethods.queryForGoodsList(1, start);
+		String result = CommonMethods.queryForGoodsList(type, start);
 		Log.i("gene", "start = " + start);
 		Log.i("geneItems", result);
 		if(result.equals("#"))

@@ -50,7 +50,7 @@ public class GoodsInfo {
 				temp.setName(rs.getString(i++));
 				temp.setLexemeName(rs.getString(i++));
 				temp.setOwner(rs.getString(i++));
-				temp.setPrice(rs.getDouble(i++));
+				temp.setPrice(rs.getString(i++));
 				temp.setImage(rs.getString(i++));
 				temp.setMainClass(rs.getInt(i++));
 				temp.setSubClass(rs.getInt(i++));
@@ -79,7 +79,7 @@ public class GoodsInfo {
 	public boolean addGoods(GoodsType goods){
 		boolean flag  = false;
 		String sql = "INSERT INTO " 
-					+"tb_goods(GName,GLexeme,GOwnerName,GPrice,GImage,GClassID,GSubClassID,GIntroduction,GDate,GLabel,Gproperty) " 
+					+"tb_goods(GName,GLexeme,GOwnerName,GPrice,GImage,GMainClass,GSubClass,GIntroduction,GDate,GLabel,Gproperty) " 
 					+"VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 		conn = ConnectMysql.connect();
 		PreparedStatement pstmt = null;
@@ -89,7 +89,7 @@ public class GoodsInfo {
 			pstmt.setString(1, goods.getName());
 			pstmt.setString(2, goods.getLexemeName());
 			pstmt.setString(3, goods.getOwner());
-			pstmt.setDouble(4, goods.getPrice());
+			pstmt.setString(4, goods.getPrice());
 			pstmt.setString(5, goods.getImage());
 			pstmt.setInt(6, goods.getMainClass());
 			pstmt.setInt(7, goods.getSubClass());
@@ -147,7 +147,7 @@ public class GoodsInfo {
 			return allGoods();//返回所有物品
 		int flag = 0;
 		ArrayList<GoodsType> goodsList = new ArrayList<GoodsType>();
-		String sql = "SELECT * FROM tb_goods WHERE GClassID = ? AND GSubClassID = ?";
+		String sql = "SELECT * FROM tb_goods WHERE GMainClass = ? AND GSubClass = ?";
 		conn = ConnectMysql.connect();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -165,7 +165,7 @@ public class GoodsInfo {
 				temp.setName(rs.getString(i++));
 				temp.setLexemeName(rs.getString(i++));
 				temp.setOwner(rs.getString(i++));
-				temp.setPrice(rs.getDouble(i++));
+				temp.setPrice(rs.getString(i++));
 				temp.setImage(rs.getString(i++));
 				temp.setMainClass(rs.getInt(i++));
 				temp.setSubClass(rs.getInt(i++));
@@ -211,7 +211,7 @@ public class GoodsInfo {
 				temp.setGNO(rs.getInt(i++));
 				temp.setName(rs.getString(i++));
 				temp.setOwner(rs.getString(i++));
-				temp.setPrice(rs.getDouble(i++));
+				temp.setPrice(rs.getString(i++));
 				temp.setImage(rs.getString(i++));
 				temp.setMainClass(rs.getInt(i++));
 				temp.setSubClass(rs.getInt(i++));
@@ -350,7 +350,7 @@ public class GoodsInfo {
 				temp.setName(rs.getString(i++));
 				temp.setLexemeName(rs.getString(i++));
 				temp.setOwner(rs.getString(i++));
-				temp.setPrice(rs.getDouble(i++));
+				temp.setPrice(rs.getString(i++));
 				temp.setImage(rs.getString(i++));
 				temp.setMainClass(rs.getInt(i++));
 				temp.setSubClass(rs.getInt(i++));

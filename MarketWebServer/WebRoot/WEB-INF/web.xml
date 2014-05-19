@@ -85,6 +85,13 @@
     <servlet-name>UserGoodsServlet</servlet-name>
     <servlet-class>org.market.serviceservlet.UserGoodsServlet</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>TestServlet</servlet-name>
+    <servlet-class>org.market.serviceservlet.TestServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -160,6 +167,10 @@
   <servlet-mapping>
     <servlet-name>UserGoodsServlet</servlet-name>
     <url-pattern>/page/UserGoodsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TestServlet</servlet-name>
+    <url-pattern>/page/TestServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
