@@ -78,6 +78,9 @@ public class MyGoodsInfoActivity extends Activity {
 			}
 		}
 		
+		
+		showDialog(l_type);
+		
 		myPic = (ImageView)findViewById(R.id.my_goods_info_imageView);
 		gName = (TextView)findViewById(R.id.my_goods_info_name);
 		gDsp = (EditText)findViewById(R.id.my_goods_info_description);
