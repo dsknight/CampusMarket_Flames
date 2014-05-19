@@ -1,6 +1,7 @@
 package org.market.serviceservlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -61,17 +62,19 @@ public class DeleteGoodsInfoServlet extends HttpServlet {
 			throws ServletException, IOException {
 		System.out.println("*** DeleteGoodsInfoServlet ***");
 		response.setContentType("text/html");
-		//PrintWriter out = response.getWriter();
+		PrintWriter out = response.getWriter();
 		String gno = request.getParameter("input");
 		//out.print(gno);
 		int GNO = Integer.parseInt(gno);
 		GoodsInfo goodsinfo = new GoodsInfo();
 		if(goodsinfo.deleteGoods(GNO)){
 			System.out.println("Delete Goods Successfully!!");
-			response.sendRedirect("main_content_goodsInfo.jsp");
+			out.print("success");
+			//response.sendRedirect("main_content_goodsInfo.jsp");
 		}else{
 			System.out.println("Delete Goods Error!!!");
-			response.sendRedirect("errors.jsp");
+			out.print("sorry");
+			//response.sendRedirect("errors.jsp");
 		}
 	}
 
