@@ -81,7 +81,7 @@ public class SignupActivity extends Activity{
 					}
 					if(if_sign == 1){
 						System.out.println("if_sign == 1");
-						Intent intent_signin=new Intent(SignupActivity.this,AllGoodsActivity.class);
+						Intent intent_signin=new Intent(SignupActivity.this,HomeActivity.class);
 						startActivity(intent_signin);
 						if_sign = 0;
 					}else if(if_sign == 2){
