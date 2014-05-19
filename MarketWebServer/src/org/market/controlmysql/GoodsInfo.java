@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.market.mysql.ConnectMysql;
 import org.market.search.Segmentation;
@@ -292,6 +293,32 @@ public class GoodsInfo {
 			stmt.setString(9, goods.getLabel()+"");
 			stmt.setString(10, goods.getProperty()+"");
 			stmt.setString(11, goods.getGNO()+"");
+			if(stmt.executeUpdate() > 0)
+				flag = true;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
+	public boolean updateGoods(int GNO, String dsp, String price){
+		boolean flag = false;
+		String sql = "UPDATE tb_goods SET GPrice=?,GIntroduction=?,GDate=? WHERE GNO=?;";
+		conn = ConnectMysql.connect();
+		PreparedStatement stmt = null;
+		try {
+			conn.setAutoCommit(false);
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, price);
+			stmt.setString(2, dsp);
+			stmt.setString(3, new Date().toString());
+			stmt.setInt(4, GNO);
 			if(stmt.executeUpdate() > 0)
 				flag = true;
 		} catch (SQLException e) {

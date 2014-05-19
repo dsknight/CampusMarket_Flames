@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class FormatVerification {
 	public static boolean verify123ABC(String a){//检验输入格式
-		Pattern pattern = Pattern.compile("^[A-Za-z0-9]+$");
+		Pattern pattern = Pattern.compile("^[A-Za-z0-9]{6,15}$");
 		Matcher matcher = pattern.matcher(a);
 		return matcher.matches();
 	}	

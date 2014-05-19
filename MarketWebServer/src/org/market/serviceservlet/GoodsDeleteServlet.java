@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.market.controlmysql.GoodsInfo;
-import org.market.types.GoodsType;
 
-public class GoodsUpdateServlet extends HttpServlet {
+public class GoodsDeleteServlet extends HttpServlet {
 
 	/**
 	 * 
@@ -21,7 +20,7 @@ public class GoodsUpdateServlet extends HttpServlet {
 	/**
 	 * Constructor of the object.
 	 */
-	public GoodsUpdateServlet() {
+	public GoodsDeleteServlet() {
 		super();
 	}
 
@@ -61,14 +60,12 @@ public class GoodsUpdateServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("*** GoodsUpdateServlet ***");
+		System.out.println("*** GoodsDeleteServlet ***");
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-		int GNO = Integer.parseInt(request.getParameter("input"));
-		String dsp = new String(request.getParameter("dsp").getBytes("8859_1"),"utf-8");;
-		String price = new String(request.getParameter("price").getBytes("8859_1"),"utf-8");;
-		if(new GoodsInfo().updateGoods(GNO,dsp,price))
+		int GNO = Integer.parseInt(request.getParameter("GNO"));
+		if(new GoodsInfo().deleteGoods(GNO))
 			out.print("*");
 		else
 			out.print("#");

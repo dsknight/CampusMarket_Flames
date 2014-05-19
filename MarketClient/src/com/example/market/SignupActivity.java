@@ -181,7 +181,7 @@ public class SignupActivity extends Activity{
 			return false;
 		}
 		if(!FormatVerification.verify123ABC(ip_un)){
-			showDialog("用户名只能由数字和字母组成");
+			showDialog("用户名只能由6-15个数字和字母组成");
 			return false;
 		}
 		if(!FormatVerification.verifyStuNO(ip_stuNO)){

@@ -1,6 +1,9 @@
 package com.example.market;
 
+import java.util.ArrayList;
+
 import com.market.types.ClientType;
+import com.market.types.GoodsType;
 import com.market.util.HttpUtil;
 
 import android.app.Activity;
@@ -160,7 +163,7 @@ public class LoginActivity extends Activity{
 		appState.setClient(new ClientType(msgs[0].substring(3)));
 		//初始化其他信息
 		appState.setDisplayInfo("");
-		appState.setGoodsList(null);
+		appState.setGoodsList(new ArrayList<GoodsType>());
 		//初始化所有类的静态变量
 		MyGoodsActivity.setFirstTime(true);
 		

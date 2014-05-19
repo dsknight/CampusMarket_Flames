@@ -3,7 +3,6 @@ package com.example.market;
 
 import com.market.types.FormatVerification;
 import com.market.util.HttpUtil;
-import com.market.util.UserConfig;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -35,10 +34,14 @@ public class AlterUsrInfoActivity  extends Activity{
 	private String mail;
 	private String phonenum;
 	
+	private MainApplication appState;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_me_info);
+		
+		appState = ((MainApplication)getApplicationContext());
 		
 		user = (TextView)findViewById(R.id.personal_account);
 		stuid = (TextView)findViewById(R.id.personal_stuno);
@@ -50,18 +53,18 @@ public class AlterUsrInfoActivity  extends Activity{
 		ok = (Button)findViewById(R.id.save);
 		cancel = (Button)findViewById(R.id.reset);
 		
-		user.setText(UserConfig.con_usr);
-		stuid.setText(UserConfig.con_stuno);
-		if(UserConfig.gender == 1)
+		user.setText(appState.getClient().getName());
+		stuid.setText(appState.getClient().getStuNO());
+		if(appState.getClient().getGender() == 1)
 			sex.setText("男");
-		else if(UserConfig.gender == 0)
+		else if(appState.getClient().getGender() == 0)
 			sex.setText("女");
 		else
 			sex.setText("未知");
-		pwd.setText(UserConfig.con_pwd);
-		confirm.setText(UserConfig.con_pwd);
-		email.setText(UserConfig.con_email);
-		phone.setText(UserConfig.con_phone);
+		pwd.setText(appState.getClient().getPassword());
+		confirm.setText(appState.getClient().getPassword());
+		email.setText(appState.getClient().getEmail());
+		phone.setText(appState.getClient().getPhone());
 		
 		ok.setOnClickListener(new OnClickListener(){
 			@Override
@@ -92,18 +95,18 @@ public class AlterUsrInfoActivity  extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				user.setText(UserConfig.con_usr);
-				stuid.setText(UserConfig.con_stuno);
-				if(UserConfig.gender == 1)
+				user.setText(appState.getClient().getName());
+				stuid.setText(appState.getClient().getStuNO());
+				if(appState.getClient().getGender() == 1)
 					sex.setText("男");
-				else if(UserConfig.gender == 0)
+				else if(appState.getClient().getGender() == 0)
 					sex.setText("女");
 				else
 					sex.setText("未知");
-				pwd.setText(UserConfig.con_pwd);
-				confirm.setText(UserConfig.con_pwd);
-				email.setText(UserConfig.con_email);
-				phone.setText(UserConfig.con_phone);
+				pwd.setText(appState.getClient().getPassword());
+				confirm.setText(appState.getClient().getPassword());
+				email.setText(appState.getClient().getEmail());
+				phone.setText(appState.getClient().getPhone());
 			}
 		});
 	}
@@ -178,9 +181,9 @@ public class AlterUsrInfoActivity  extends Activity{
 					System.out.println("set if_change to 1");
 					if_change = 1;
 					//TODO
-					UserConfig.con_pwd = passw;
-					UserConfig.con_email = mail;
-					UserConfig.con_phone = phonenum;
+					appState.getClient().setPassword(passw);
+					appState.getClient().setPassword(mail);
+					appState.getClient().setPassword(phonenum);
 				}
 			}
 		};

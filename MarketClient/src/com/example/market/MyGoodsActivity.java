@@ -95,8 +95,9 @@ public class MyGoodsActivity extends Activity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,  
                     long arg3) {  
             	Toast.makeText(getApplicationContext(),"choose "+ arg2+" goods",Toast.LENGTH_SHORT).show();
-            	Intent intent_signup=new Intent(MyGoodsActivity.this,MyGoodsInfoActivity.class);
-				startActivity(intent_signup);
+            	Intent intent=new Intent(MyGoodsActivity.this,MyGoodsInfoActivity.class);
+            	intent.putExtra("index", arg2+"");
+				startActivity(intent);
             }  
         });
 		

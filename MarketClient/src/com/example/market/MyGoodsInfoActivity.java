@@ -102,6 +102,7 @@ public class MyGoodsInfoActivity extends Activity {
 						if(CommonMethods.queryForAlterGoodsInfo(gno,l_dsp,l_price)){
 							((MainApplication)getApplicationContext()).getGoodsList().get(index).setIntroduction(l_dsp);
 							((MainApplication)getApplicationContext()).getGoodsList().get(index).setPrice(l_price);
+							showDialog("更新成功！");
 						}
 						else{
 							showDialog("更新商品信息出现了问题，请稍后再试~");
@@ -117,8 +118,10 @@ public class MyGoodsInfoActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				try {
-					if(CommonMethods.queryForDeletingGoods(gno))
+					if(CommonMethods.queryForDeletingGoods(gno)){
 						((MainApplication)getApplicationContext()).getGoodsList().remove(index);
+						showDialog("删除成功！");
+					}
 					else{
 						showDialog("删除商品出现了问题，请稍后再试~");
 					}

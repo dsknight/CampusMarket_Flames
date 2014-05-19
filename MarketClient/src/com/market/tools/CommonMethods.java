@@ -62,8 +62,8 @@ public class CommonMethods {
 	public static boolean queryForDeletingGoods(int gno)
 			throws InterruptedException{
 
-		String queryString="input="+gno;
-		final String url = HttpUtil.BASE_URL+"page/DeleteGoodsInfoServlet?"+queryString;
+		String queryString="GNO="+gno;
+		final String url = HttpUtil.BASE_URL+"page/GoodsDeleteServlet?"+queryString;
 		goodsInfoFlag = 0;
 		Runnable runnable = new Runnable(){
 			@Override
@@ -82,7 +82,7 @@ public class CommonMethods {
 		thread_getgood.start();
 		
 		int i = 0;
-		while (goodsInfoFlag == 0 && i++ < 1000)
+		while (goodsInfoFlag == 0 && i++ < 5000)
 			Thread.sleep(1);
 		if (goodsInfoFlag == 0)
 			return false;
@@ -114,7 +114,7 @@ public class CommonMethods {
 		thread_getgood.start();
 		
 		int i = 0;
-		while (goodsInfoFlag == 0 && i++ < 1000)
+		while (goodsInfoFlag == 0 && i++ < 5000)
 			Thread.sleep(1);
 		if (goodsInfoFlag == 0)
 			return false;
