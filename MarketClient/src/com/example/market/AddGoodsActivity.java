@@ -95,8 +95,9 @@ public class AddGoodsActivity extends Activity {
 					param.put("goodsIntroduction", goodsDsp);
 					param.put("goodsProperty", "0");
 					try {
-						if(CommonMethods.queryForGoodsUpload(param))
+						if(CommonMethods.queryForGoodsUpload(param)){
 							showDialog("上传成功！");
+						}
 						else
 							showDialog("有点小问题...请稍后再试~");
 					} catch (InterruptedException e) {

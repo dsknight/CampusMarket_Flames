@@ -127,7 +127,6 @@ public class LoginActivity extends Activity{
 			{
 				System.out.println("Android starts to send Login request\n");
 				String msg=HttpUtil.queryStringForPost(url);
-				System.out.println(msg);
 				if(msg == null){
 					if_login = 0; 
 				}
