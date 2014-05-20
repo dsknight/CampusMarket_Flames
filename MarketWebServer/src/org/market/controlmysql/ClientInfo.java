@@ -217,9 +217,9 @@ public class ClientInfo {
 				client.setName(rs.getString(2));
 				client.setPassword(rs.getString(3));
 				client.setGender(rs.getInt(4));
-				client.setStuNO(rs.getString(5));
-				client.setPhone(rs.getString(6));
-				client.setEmail(rs.getString(7));
+				client.setPhone(rs.getString(5));
+				client.setEmail(rs.getString(6));
+				client.setStuNO(rs.getString(7));
 				client.setDate(rs.getString(8));
 				client.setNeeds(rs.getString(9));
 			}

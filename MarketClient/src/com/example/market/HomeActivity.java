@@ -40,6 +40,7 @@ public class HomeActivity  extends Activity  {
     private MyAdapter new_adapter; 
     
     private MainApplication appState;
+    private String[] suggests;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +86,7 @@ public class HomeActivity  extends Activity  {
 			
 		});
 		
-		final String[] suggests = appState.getSuggest().split("\\*");
+		suggests = appState.getSuggest().split("\\*");
 		//显示推荐信息
 		if(suggests.length == 1 && suggests[0].equals("")){
 			((TextView)findViewById(R.id.suggest1)).setText("尚未找到与您需求相关的物品~");

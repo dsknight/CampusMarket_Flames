@@ -2,8 +2,7 @@ package com.example.market;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -95,8 +94,23 @@ public class AddGoodsActivity extends Activity {
 					param.put("goodsIntroduction", goodsDsp);
 					param.put("goodsProperty", "0");
 					try {
-						if(CommonMethods.queryForGoodsUpload(param)){
-							showDialog("上传成功！");
+						String tmp = CommonMethods.queryForGoodsUpload(param);
+						if(!tmp.equals("#")){
+							//showDialog("上传成功！");
+							Toast.makeText(getApplicationContext(),"上传成功！",Toast.LENGTH_SHORT).show();
+							GoodsType newGoods = new GoodsType();
+							newGoods.setName(goodsName);
+							newGoods.setOwner(goodsOwner);
+							newGoods.setPrice(goodsPrice);
+							newGoods.setImage(goodsImage);
+							newGoods.setIntroduction(goodsDsp);
+							java.text.SimpleDateFormat format1 = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+							newGoods.setDate(format1.format(new Date()));
+							newGoods.setGNO(Integer.parseInt(tmp.split(" ")[0].substring(1)));
+							newGoods.setMainClass(goodsType);
+							((MainApplication)getApplicationContext()).getGoodsList().add(newGoods);
+							Intent intent = new Intent(AddGoodsActivity.this, MyGoodsActivity.class);
+							startActivity(intent);
 						}
 						else
 							showDialog("有点小问题...请稍后再试~");

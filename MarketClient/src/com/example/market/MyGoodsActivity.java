@@ -54,7 +54,7 @@ public class MyGoodsActivity extends Activity {
 			if(result.equals("!"))
 				showDialog("网络异常，请稍后再试~");
 			else if(result.equals("#"))
-				showDialog("出了点小问题...");
+				showDialog("您还没有商品，手头的闲置物品添加进来吧！");
 			else{
 				ArrayList<GoodsType> goodsList = new ArrayList<GoodsType>();
 				String[] goodsStrings = result.split("!\\*G");

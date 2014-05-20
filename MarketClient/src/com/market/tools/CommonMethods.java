@@ -156,7 +156,7 @@ public class CommonMethods {
 		return goodsInfoResult;
 	}
 
-	public static boolean queryForGoodsUpload(final Map<String, String> param)
+	public static String queryForGoodsUpload(final Map<String, String> param)
 			throws InterruptedException {
 		goodsUploadFlag = 0;
 		final String url = HttpUtil.BASE_URL + "page/GoodsUploadServlet";
@@ -188,8 +188,8 @@ public class CommonMethods {
 		while (goodsUploadFlag == 0 && i++ < 5000)
 			Thread.sleep(1);
 		if (goodsUploadFlag != 1)
-			return false;
-		return true;
+			return "#";
+		return goodsUploadResult;
 
 	}
 

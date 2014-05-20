@@ -41,13 +41,15 @@ public class GoodsType {
 		this.owner = items[2];
 		this.price = items[3];
 		this.image = items[4];
-		this.introduction = items[5];
-		this.date = items[6];
+		this.mainClass = Integer.parseInt(items[5]);
+		this.subClass = Integer.parseInt(items[6]);
+		this.introduction = items[7];
+		this.date = items[8];
 	}
 	
 	public String toString(){//以$开始，条目之间以|分割，以*结束
-		return "!$G" + GNO + "!|G" + name + "!|G" + owner + "!|G" + price + "!|G" + image 
-				   + "!|G" + introduction + "!|G" + date + "!*G";
+		return "!$G" + GNO + "!|G" + name + "!|G" + owner + "!|G" + price + "!|G" + image + "!|G" 
+				+ mainClass + "!|G" + subClass + "!|G" + introduction + "!|G" + date + "!*G";
 	}
 	
 	public int getGNO(){

@@ -35,7 +35,7 @@ public class GoodsInfo {
 	public ArrayList<GoodsType> allGoods(){
 		int flag = 0;
 		ArrayList<GoodsType> list = new ArrayList<GoodsType>();
-		String sql = "SELECT * FROM tb_goods WHERE Gproperty=0";
+		String sql = "SELECT * FROM tb_goods WHERE Gproperty=0 ORDER BY GDate DESC;";
 		conn = ConnectMysql.connect();
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -52,7 +52,7 @@ public class GoodsInfo {
 				temp.setLexemeName(rs.getString(i++));
 				temp.setOwner(rs.getString(i++));
 				temp.setPrice(rs.getString(i++));
-				temp.setImage(rs.getString(i++));
+				temp.setImage("");i++;//这里不存放图片，减少内存开销
 				temp.setMainClass(rs.getInt(i++));
 				temp.setSubClass(rs.getInt(i++));
 				temp.setIntroduction(rs.getString(i++));
@@ -148,7 +148,7 @@ public class GoodsInfo {
 			return allGoods();//返回所有物品
 		int flag = 0;
 		ArrayList<GoodsType> goodsList = new ArrayList<GoodsType>();
-		String sql = "SELECT * FROM tb_goods WHERE GMainClass = ? AND GSubClass = ?";
+		String sql = "SELECT * FROM tb_goods WHERE GMainClass = ? AND GSubClass = ? ORDER BY GDate DESC;";
 		conn = ConnectMysql.connect();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -167,7 +167,7 @@ public class GoodsInfo {
 				temp.setLexemeName(rs.getString(i++));
 				temp.setOwner(rs.getString(i++));
 				temp.setPrice(rs.getString(i++));
-				temp.setImage(rs.getString(i++));
+				temp.setImage("");i++;//不存放图片，减少内存开销
 				temp.setMainClass(rs.getInt(i++));
 				temp.setSubClass(rs.getInt(i++));
 				temp.setIntroduction(rs.getString(i++));
@@ -196,7 +196,7 @@ public class GoodsInfo {
 	public ArrayList<GoodsType> certainGoods(String Owner){
 		int flag = 0;
 		ArrayList<GoodsType> goodsList = new ArrayList<GoodsType>();
-		String sql = "SELECT * FROM tb_goods WHERE GOwnerName=? AND Gproperty=0;";
+		String sql = "SELECT * FROM tb_goods WHERE GOwnerName=? AND Gproperty=0 ORDER BY GDate DESC;";
 		conn = ConnectMysql.connect();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -317,7 +317,8 @@ public class GoodsInfo {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, price);
 			stmt.setString(2, dsp);
-			stmt.setString(3, new Date().toString());
+			java.text.SimpleDateFormat format1 = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			stmt.setString(3, format1.format(new Date()));
 			stmt.setInt(4, GNO);
 			if(stmt.executeUpdate() > 0)
 				flag = true;

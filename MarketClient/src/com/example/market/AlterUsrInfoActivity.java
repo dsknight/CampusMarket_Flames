@@ -7,6 +7,7 @@ import com.market.util.HttpUtil;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AlterUsrInfoActivity  extends Activity{
 	private TextView user;
@@ -72,19 +74,23 @@ public class AlterUsrInfoActivity  extends Activity{
 				// TODO Auto-generated method stub
 				if(validate()){
 					changeInfo();
-					try {
-						Thread.sleep(2000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					int i = 0;
+					while(if_change == 0 && i++ < 2000)
+						try {
+							Thread.sleep(1);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					if(if_change == 0){
 						System.out.println("if_change == 0");
 						showDialog("网络异常，请稍后再试");
 					}
 					else if(if_change == 1){
 						System.out.println("if_change == 1");
-						showDialog("修改成功！");
+						Toast.makeText(getApplicationContext(),"修改成功！",Toast.LENGTH_SHORT).show();
+						Intent intent=new Intent(AlterUsrInfoActivity.this,PersonalActivity.class);
+						startActivity(intent);
 						if_change = 0;
 					}
 				}
@@ -166,7 +172,7 @@ public class AlterUsrInfoActivity  extends Activity{
 
 		String queryString="username="+usern+"&password="+passw+
 			"&stuno="+stuno+"&sex="+sex_user+"&email="+mail+"&phone="+phonenum;
-		url = HttpUtil.BASE_URL+"page/AndroidChangeInfoServlet?"+queryString;
+		url = HttpUtil.BASE_URL+"page/AlterClientInfoServlet?"+queryString;
 		System.out.println(url);
 		
 		Runnable runnable = new Runnable(){
@@ -174,10 +180,10 @@ public class AlterUsrInfoActivity  extends Activity{
 			public void run(){
 				System.out.println("Android starts to send change info request\n");
 				result = HttpUtil.queryStringForPost(url);
-				if(result == null || result.equals("sorry")){
+				if(result == null || result.equals("#")){
 					System.out.println("set if_change to 0");
 					if_change = 0;
-				}else if(result.equals("success")){
+				}else if(result.equals("*")){
 					System.out.println("set if_change to 1");
 					if_change = 1;
 					//TODO

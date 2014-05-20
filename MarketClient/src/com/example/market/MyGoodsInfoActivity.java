@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.market.tools.CommonMethods;
 import com.market.types.GoodsType;
@@ -79,8 +80,6 @@ public class MyGoodsInfoActivity extends Activity {
 		}
 		
 		
-		showDialog(l_type);
-		
 		myPic = (ImageView)findViewById(R.id.my_goods_info_imageView);
 		gName = (TextView)findViewById(R.id.my_goods_info_name);
 		gDsp = (EditText)findViewById(R.id.my_goods_info_description);
@@ -105,7 +104,10 @@ public class MyGoodsInfoActivity extends Activity {
 						if(CommonMethods.queryForAlterGoodsInfo(gno,l_dsp,l_price)){
 							((MainApplication)getApplicationContext()).getGoodsList().get(index).setIntroduction(l_dsp);
 							((MainApplication)getApplicationContext()).getGoodsList().get(index).setPrice(l_price);
-							showDialog("更新成功！");
+							//showDialog("更新成功！");
+							Toast.makeText(getApplicationContext(),"更新成功！",Toast.LENGTH_SHORT).show();
+							Intent intent = new Intent(MyGoodsInfoActivity.this,MyGoodsActivity.class);
+							startActivity(intent);
 						}
 						else{
 							showDialog("更新商品信息出现了问题，请稍后再试~");
@@ -123,7 +125,10 @@ public class MyGoodsInfoActivity extends Activity {
 				try {
 					if(CommonMethods.queryForDeletingGoods(gno)){
 						((MainApplication)getApplicationContext()).getGoodsList().remove(index);
-						showDialog("删除成功！");
+						Toast.makeText(getApplicationContext(),"删除成功！",Toast.LENGTH_SHORT).show();
+						//showDialog("删除成功！");
+						Intent intent = new Intent(MyGoodsInfoActivity.this,MyGoodsActivity.class);
+						startActivity(intent);
 					}
 					else{
 						showDialog("删除商品出现了问题，请稍后再试~");

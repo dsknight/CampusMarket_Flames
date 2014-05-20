@@ -77,7 +77,8 @@ public class GoodsUploadServlet extends HttpServlet {
 		currGoods.setName(strUTF8);
 		currGoods.setLexemeName(Segmentation.IKAnalyze(currGoods.getName()));
 		currGoods.setOwner(request.getParameter("goodsOwner"));
-		currGoods.setDate(String.valueOf(new Date()));
+		java.text.SimpleDateFormat format1 = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		currGoods.setDate(format1.format(new Date()));
 		if(property == 0){//上传的是真实物品而不是需求
 			System.out.println("upload goods");
 			strUTF8 = new String(request.getParameter("goodsPrice").getBytes("8859_1"),"utf-8");
