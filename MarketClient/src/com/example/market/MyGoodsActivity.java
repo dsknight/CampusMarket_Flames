@@ -85,8 +85,9 @@ public class MyGoodsActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent_signup=new Intent(MyGoodsActivity.this,AddGoodsActivity.class);
-				startActivity(intent_signup);
+				Intent intent=new Intent(MyGoodsActivity.this,AddGoodsActivity.class);
+				startActivity(intent);
+				finish();
 			}
 		});
 		

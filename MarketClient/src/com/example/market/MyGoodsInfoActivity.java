@@ -108,6 +108,7 @@ public class MyGoodsInfoActivity extends Activity {
 							Toast.makeText(getApplicationContext(),"更新成功！",Toast.LENGTH_SHORT).show();
 							Intent intent = new Intent(MyGoodsInfoActivity.this,MyGoodsActivity.class);
 							startActivity(intent);
+							finish();
 						}
 						else{
 							showDialog("更新商品信息出现了问题，请稍后再试~");
@@ -129,6 +130,7 @@ public class MyGoodsInfoActivity extends Activity {
 						//showDialog("删除成功！");
 						Intent intent = new Intent(MyGoodsInfoActivity.this,MyGoodsActivity.class);
 						startActivity(intent);
+						finish();
 					}
 					else{
 						showDialog("删除商品出现了问题，请稍后再试~");
